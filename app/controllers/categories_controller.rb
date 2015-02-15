@@ -8,11 +8,8 @@ class CategoriesController < ApplicationController
   def create
     # render text: params
     @category = Category.new category_params
-    if @category.save
-      redirect_to @category
-    else
-      render :new
-    end
+    @category.save
+    redirect_to categories_path 
   end
 
   def show

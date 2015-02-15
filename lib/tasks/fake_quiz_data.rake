@@ -25,7 +25,7 @@ namespace :fake_quiz_data do
   
     Quiz.all.each do |quiz|
       10.times do 
-        question = quiz.questions.create(title: Faker::Lorem.word, body: Faker::Lorem.sentence(15), explaination: Faker::Lorem.sentence(10) )
+        question = quiz.questions.create(title: Faker::Lorem.word, body: Faker::Lorem.sentence(15), explanation: Faker::Lorem.sentence(10) )
       end
     end
 

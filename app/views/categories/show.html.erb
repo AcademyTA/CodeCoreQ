@@ -1,7 +1,16 @@
-<h1> Show </h1> 
-
-<%= link_to 'index', categories_path %> 
 <br>
-<p>Don know wat dis iz</p>
+<%= link_to 'Category Index', categories_path %> 
+<br>
 
-<p><%= @category.title %></p>
+<center><h1><%= @category.title %></h1></center>
+<br> 
+
+<h2><%= @category.title %> Quizzes</h2>
+<hr>
+  <% @category.quizzes.each do |q| %>
+    <h4><%= q.title %></h4>
+    <h4><%= q.body %></h4>
+    <h4><%= q.level %></h4>
+    <hr>
+  <% end %>  
+

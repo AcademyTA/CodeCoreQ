@@ -18,7 +18,7 @@ $dropDown       : true;
       > a {
         color: $colDefault;
         &:hover,  &:focus {
-          color: $colHighlight; }}
+          color: #23ac9b; }} //hover text here
       @if $dropDown {
         > .dropdown-menu {
           background-color: $bgDefault;

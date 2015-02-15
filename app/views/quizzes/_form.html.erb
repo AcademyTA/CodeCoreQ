@@ -6,8 +6,16 @@
     <%= f.text_field :title, class: 'form-control' %><br>
     <%= f.label :body %>
     <%= f.text_area :body, class: 'form-control' %><br>
+    
+
     <%= f.label :level %>
-    <%= f.number_field :level, class: 'form-control' %><br>
+    <%= f.radio_button :level, "1", :checked => true %>
+    <%= f.label :"1", "1", :value => "1" %> 
+    <%= f.radio_button :level, "2" %>
+    <%= f.label :level, "2", :value => "2" %>
+    <%= f.radio_button :level, "3" %>
+    <%= f.label :level, "3", :value => "3" %>
+    <br>
 
     Select a category<br>
     <% @categories.each do |c| %>
@@ -21,4 +29,3 @@
     <%= button_tag "Reset", type: :reset, class: "btn btn-danger" %>
   <% end %>
 </div>
-

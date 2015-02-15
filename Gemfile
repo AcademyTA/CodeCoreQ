@@ -27,6 +27,7 @@ group :development, :test do
   gem "interactive_editor"
   gem "hirb"
   gem "awesome_print"
+  gem "rails-erd"  # graphical ERD tool to generate PDF
 end
 
 group :text do

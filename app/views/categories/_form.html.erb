@@ -2,5 +2,7 @@
   <%= form_for :category, url: categories_path do |f| %>
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %>
+    <br>
+    <%= f.submit %>
   <% end %>
 </div>
