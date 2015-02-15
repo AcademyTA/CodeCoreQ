@@ -8,5 +8,7 @@
   <p>Q Body: <%= q.body %></p><br>
   <p>Q explanation: <%= q.explanation %></p><br>
   <p><%= link_to 'Edit', edit_quiz_question_path(@quiz, q), class: "btn btn-xs btn-primary"  %>
+  <%= link_to 'Show', question_path(q), class: "btn btn-xs btn-primary"  %>
+  <%= link_to 'Add Answer', new_question_answer_path(q), class: "btn btn-xs btn-primary"  %>
   <%= link_to 'Delete', quiz_question_path(@quiz, q), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-xs btn-danger"  %></p><br>
 <% end %> 
