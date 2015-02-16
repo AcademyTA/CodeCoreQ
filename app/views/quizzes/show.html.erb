@@ -5,6 +5,7 @@
 <p>Quiz Body <%= @quiz.body %></p><br>
 <p>Quiz Category <%= @category.title %></p><br>
 
+
 <%= link_to "Add questions", new_quiz_question_path(@quiz) %>
 <hr>
 
@@ -12,7 +13,9 @@
   Question: <%= q.title %> <br>
   Body: <%= q.body %> <br>
     <% q.answers.each do |a| %>
-      <%= a.body %><br>
+      <ul>
+        <li><%= a.body %></li>
+      </ul>
     <% end %>
 
   <hr>

@@ -1,16 +1,15 @@
-<h2>SHOW ALL QUIZZES</h2>
-<p>views/quizzes/index.html.erb</p>
+<h2>ALL QUIZZES</h2>
+<!-- <p>views/quizzes/index.html.erb</p> -->
 <%= link_to 'Add a quiz', new_quiz_path %>
 <br>
 <hr>
 
 <% @quizzes.each do |q| %>
-  <p>Title: <%= link_to q.title, quiz_path(q) %></p>
-  <p>Body: <%= q.body %></p>
-  <p>Category Title: <%= Category.find(q.category_id).title  %></p>
+  <h3><%= link_to q.title, quiz_path(q) %></h3>
+  <p>Quiz description: <%= q.body %></p>
+  <p>Category: <%= Category.find(q.category_id).title  %></p>
   <p>Level: <%= q.level %></p>
   <p><%= link_to 'Edit', edit_quiz_path(q) %></p>
   <p><%= link_to 'Delete', quiz_path(q), method: :delete, data: {confirm: "you sure?"} %></p>
-  <p><%= link_to 'Show', quiz_path(q) %></p>
   <hr>
 <% end %>
