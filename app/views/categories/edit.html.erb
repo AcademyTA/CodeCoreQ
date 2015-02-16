@@ -2,6 +2,16 @@
 <div class="quiz-form-container">
   <div class="well">
     <h1> Edit a Category </h1>
-      <%= render 'form' %>
+     
+      <div class="form-group">
+        <%= form_for :category, url: category_path(@category), method: :patch do |f| %>
+          <%= f.label :title %>
+          <%= f.text_field :title, class: 'form-control' %>
+          <br>
+          <%= f.submit %>
+        <% end %>
+      </div>
+
+
   </div>
 </div>
