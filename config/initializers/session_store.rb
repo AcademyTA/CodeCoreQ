@@ -3,4 +3,4 @@
 Rails.application.config.session_store :cookie_store,
                                              key: '_groupaquiz_session', 
                                              :key => '_groupaquiz_session',
-                                             :expire_after => week.minutes
+                                             :expire_after => 1.week
