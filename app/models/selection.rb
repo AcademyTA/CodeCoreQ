@@ -11,4 +11,5 @@ class Selection < ActiveRecord::Base
     self.points ||= 0
   end
 =end
+
 end

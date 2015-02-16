@@ -11,4 +11,12 @@ class Quiz < ActiveRecord::Base
   validates :level, presence: true, numericality: true
   validates :category_id, presence: true
 
+  def per_question_point
+    q_count = questions.count
+    if q_count != 0
+      ( 100 / q_count ) * level
+    else
+      0
+    end
+  end
 end

@@ -6,4 +6,7 @@ class Answer < ActiveRecord::Base
 
   validates :body, presence: true
 
+  def value
+    correct ? question.quiz.per_question_point : 0
+  end
 end
