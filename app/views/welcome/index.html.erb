@@ -57,51 +57,67 @@
 </div>
 
 <div class="parallax-window" data-parallax="scroll">
-  <div class="section-container">
+  <div class="section-container-2">
     <div class="container anchor-margin">
       <center>
         <div id="section_four" class="row">
 
         <!-- start of carousel -->
 
-          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <div class="carousel-container">
+          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
             <!-- Indicators -->
             <ol class="carousel-indicators">
               <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
               <li data-target="#carousel-example-generic" data-slide-to="1"></li>
               <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="3"></li>
             </ol>
 
             <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <%= image_tag "images/HTML_logo.gif" %>
-                <div class="carousel-caption">
-                  ...
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <%= image_tag "review1.jpg", class: "carousel-image" %>
+                  <div class="carousel-caption">
+                    <p class="carousel-text">Brent: "With Q's fundamentals constantly testing me, I can be sure I'll always be on top of the basics."</p>
+                  </div>
                 </div>
-              </div>
-              <div class="item">
-                <%= image_tag "images/RB_logo.gif" %>
-                <div class="carousel-caption">
-                  ...
+                <div class="item">
+                  <%= image_tag "review2.jpg", class: "carousel-image" %>
+                  <div class="carousel-caption">
+                    <p class="carousel-text">TK: "I am at a loss for words."</p>
+                  </div>
                 </div>
+                <div class="item">
+                  <%= image_tag "review3.jpg", class: "carousel-image" %>
+                  <div class="carousel-caption">
+                    <p class="carousel-text">Mitch: "JavaScript, DOM, JavaScript, DOM, Wrapped Set</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <%= image_tag "review4.jpg", class: "carousel-image" %>
+                  <div class="carousel-caption">
+                    <p class="carousel-text">Drew: "I know two things, programming and beards. This site gave me both!"</p>
+                  </div>
+                </div>
+
+                Testimonials
               </div>
-              ...
+
+              <!-- Controls -->
+              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
             </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
+            <!-- end of carousel -->
           </div>
-          <!-- end of carousel -->
-
         </div>
+
       </center>
     </div>
   </div>
