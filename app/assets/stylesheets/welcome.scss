@@ -45,7 +45,7 @@ body {
   height: 700px;
   position: relative;
   margin: 0 auto;
-  background-color: #eeeeee;
+  background-color: #ffffff;
   p {
     font-size: 16px;
     padding: 10px;
@@ -90,6 +90,24 @@ body {
   padding-top: 5px;
 }
 
+.section-container-2 {
+  height: 700px;
+  position: relative;
+  margin: 0 auto;
+  // background-color: #444444; 
+}
+
+.carousel-container {
+  width: 500px;
+  max-height: 300px;
+}
+
+.carousel-image {
+  height: 300px !important;
+}
+.carousel-text {
+  background-color: rgba(53,53,53,0.4);
+}
 
 @media (max-width: 767px) {
   // img {
