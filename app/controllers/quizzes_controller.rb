@@ -31,6 +31,7 @@ class QuizzesController < ApplicationController
 
 
   def edit
+    @categories = Category.all
     @quiz = Quiz.find(params[:id])
   end
 
