@@ -9,12 +9,11 @@ class WelcomeController < ApplicationController
 
 
   def about
-    
-    @quiz = Quiz.find params[:id] 
-    @answer = Answer.find params[:question][:id]
-    
-    render text: @answer
 
+    redirect_to :index
+    # render text: params
+    # @quiz = Quiz.find params[:id] 
+    # @answer = Answer.find params[:question][:id]
   end
 
 

@@ -2,9 +2,9 @@ Rails.application.routes.draw do
 
 
   get 'password_resets/new'
-
   get 'password_resets/edit'
 
+  get 'users/new'
   get    'signup'  =>  'users#new'
   get    'login'   =>  'sessions#new'
   post   'login'   =>  'sessions#create'
@@ -12,24 +12,34 @@ Rails.application.routes.draw do
   resources :users
 
 
-  post '/quizzes/:id' => 'welcome#about' #'quizzes#show'
+  post '/quizzes/:id' => 'selections#create' #'quizzes#show'
 
 
-  get 'users/new'
 
-  resources :quizzes do 
-    resources :questions
-  end 
 
-  resources :questions do
-    resources :answers, only: [:new, :create, :update] do
-      resources :selections, only: [:create, :update]
-    end
-  end
+
+  # resources :questions do
+  #   resources :answers, only: [:new, :create, :update] do
+  #     resources :selections, only: [:create, :update]
+  #   end
+  # end
   
   resources :categories do
     resources :quizzes
   end
+
+    resources :quizzes do 
+    resources :questions
+  end 
+
+resources :questions do
+  resources :answers, only: [:new, :create, :update] do
+      resources :selections, only: [:create, :update]
+    end
+  end
+
+
+
 
   resources :password_resets,     only: [:new, :create, :edit, :update]
   
