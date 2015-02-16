@@ -1,0 +1,18 @@
+<h1> Add an answer </h1> 
+
+<%= form_for :answer, url: quiz_questions_path(q) do |f| %>
+
+  <%= f.label :body %>
+  <%= f.text_area :body %> 
+
+  <%= f.label :correct %>
+  <%= f.text_field :correct %>  
+  <!-- make above boolean -->
+
+  <%= f.label :question_id %>
+  <%= f.hidden_field :question_id, :value => q.id %>
+
+
+  <%= f.submit %> 
+
+<% end %>

@@ -20,8 +20,9 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @quiz = Quiz.find params[:quiz_id]
-    @question = @quiz.questions.find(params[:id])
+    # render text: params
+    @question = Question.find(params[:id])
+    @answers = @question.answers
   end
 
 

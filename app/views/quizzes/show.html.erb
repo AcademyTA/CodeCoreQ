@@ -7,6 +7,7 @@
 <p>Quiz Category <%= @category.title %></p><br>
 <p>Quiz Level <%= @quiz.level %></p><br>
 
+<%= link_to "Add questions", new_quiz_question_path(@quiz) %>
 <hr>
 
 
