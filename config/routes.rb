@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :users
 
 
+  post '/quizzes/:id' => 'welcome#about' #'quizzes#show'
+
+
   get 'users/new'
   resources :quizzes do 
     resources :questions

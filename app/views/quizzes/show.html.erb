@@ -10,12 +10,20 @@
 <hr>
 
 <% @questions.each do |q| %>
-  Question: <%= q.title %> <br>
-  Body: <%= q.body %> <br>
-    <% q.answers.each do |a| %>
-      <ul>
-        <li><%= a.body %></li>
-      </ul>
+  Question Title: <%= q.title %> <br>
+  Question Body: <%= q.body %> <br>
+
+    <%= form_for q, url: quiz_path(@quiz), method: :update do |f| %>
+
+         <% q.answers.each do |a| %>
+       
+            Answer Body: 
+            <%= f.radio_button(:id, a.id) %>
+            <%= f.label(:body, a.body ) %><br>
+      
+        <%end%>
+        <%= f.submit :value => "submit answer" %>
+    
     <% end %>
 
   <hr>

@@ -35,8 +35,9 @@ class QuizzesController < ApplicationController
   end
 
   def update
+    # render text: params
     @quiz = Quiz.find(params[:id])
-
+    
     if @quiz.update(quiz_params)
       redirect_to quizzes_path
     else 
