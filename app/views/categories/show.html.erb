@@ -5,12 +5,15 @@
 <center><h1><%= @category.title %></h1></center>
 <br> 
 
-<h2><%= @category.title %> Quizzes</h2>
+<h2>Quizzes</h2>
 <hr>
+<ul>
   <% @category.quizzes.each do |q| %>
-    <h4><%= q.title %></h4>
-    <h4><%= q.body %></h4>
-    <h4><%= q.level %></h4>
+    <li>
+      <%= link_to q.title, category_quiz_path(@category, q) %><br>
+      <%= q.body %><br>
+      <%= q.level %>
+    </li>
     <hr>
   <% end %>  
-
+</ul>

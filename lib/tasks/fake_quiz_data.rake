@@ -33,21 +33,26 @@ namespace :fake_quiz_data do
     # generate 3 answers for each question
     Question.all.each do |question|
       3.times do
-        answer = question.answers.create(body: Faker::Lorem.sentences(5), correct: [true, false].sample)
+        answer = question.answers.create(body: Faker::Lorem.sentences(5), correct: false)
       end
+
+      # initialize all 3 answers to false, choose one at random set to true
+      question.answers.sample.update(correct: true)
     end
 
     User.all.each do |u|
 
-      # generate random selection pairings between users and answers
-      10.times do
-        selection = u.selections.create(answer_id: Answer.select("id").sample.id )
-      end
-
       # generate random UserQuiz pairings between users and quizzes
       2.times do
         userquiz = u.user_quizzes.create(quiz_id: Quiz.select("id").sample.id )
-      end 
+
+        # generate selection pairings between users and answers based on userquiz
+        userquiz.quiz.questions.each do |question|
+          selection = u.selections.create(answer_id: question.answers.sample.id)
+        end
+      end
+
+
     end
 
   end
