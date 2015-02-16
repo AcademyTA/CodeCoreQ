@@ -1,26 +1,17 @@
-<br>
-<%= link_to 'My quizzes', quizzes_path %> <br><br>
+<h1>Quiz Title: <%= @quiz.title %></h1>
+<p>Quiz Body: <%= @quiz.body %></p><br>
+<p>Quiz Level: <%= @quiz.level %></p><br>
+<p>Quiz sCategory: <%= @category.title %></p><br>
 
-<h1><%= @quiz.title %></h1>
-<p>Quiz Body <%= @quiz.body %></p><br>
-<p>Quiz Category <%= @category.title %></p><br>
-
-
-<%= link_to "Add questions", new_quiz_question_path(@quiz) %>
+<%#= link_to 'My quizzes', quizzes_path %>
+<%#= link_to "Add questions", new_quiz_question_path(@quiz) %>
 <hr>
 
-<% @questions.each do |q| %>
-  Question: <%= q.title %> <br>
-  Body: <%= q.body %> <br>
-    <% q.answers.each do |a| %>
-      <ul>
-        <li><%= a.body %></li>
-      </ul>
-    <% end %>
-
-  <hr>
-<% end %>
-
+<ul>
+  <% @questions.each do |q| %>
+    <li><%= link_to q.title, quiz_question_path(@quiz, q) %></li>
+  <% end %>
+</ul>
 
 
 
