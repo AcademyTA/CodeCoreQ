@@ -6,12 +6,13 @@ namespace :fake_quiz_data do
 
     # generate 3 user
     3.times do |n|
-      user = User.create(name: Faker::Internet.password(7), email: "example-#{n+1}@email.com", password: "password", admin: [true, false].sample, activated: true )
+      user = User.create(name: Faker::Internet.password(7), email: "example-#{n+1}@email.com", 
+                            password: "password", admin: [true, false].sample, activated: true )
     end
 
     # generate 2 category
-    2.times do
-      category = Category.create(title: Faker::Lorem.word)
+    2.times do |n|
+      category = Category.create(title: "Category-#{n+1}")
     end
 
     # generate 3 quiz for each category
@@ -23,9 +24,9 @@ namespace :fake_quiz_data do
 
     # generate 10 questions for each quiz
   
-    Quiz.all.each do |quiz|
+    Quiz.all.each_with_index do |quiz, index|
       10.times do 
-        question = quiz.questions.create(title: Faker::Lorem.word, body: Faker::Lorem.sentence(15), explanation: Faker::Lorem.sentence(10) )
+        question = quiz.questions.create(title: "Question-#{index+1}", body: Faker::Lorem.sentence(15), explanation: Faker::Lorem.sentence(10) )
       end
     end
 

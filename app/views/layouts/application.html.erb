@@ -48,6 +48,22 @@
       </div>
     </nav>
     <div class="container">
+      <% flash.each do |name, msg| %>
+        <% if name=="notice" %>
+          <%= content_tag :div, msg, class: "alert alert-notice", role: "alert" %>
+        <% elsif name=="alert" %>
+          <%= content_tag :div, msg, class: "alert alert-warning", role: "alert" %>
+        <% elsif name=="error" %>
+          <%= content_tag :div, msg, class: "alert alert-danger", role: "alert" %>
+        <% elsif %>
+          <%= content_tag :div, msg, class: "alert alert-info", role: "alert" %>
+        <% elsif %>
+          <%= content_tag :div, msg, class: "alert alert-error", role: "alert" %>
+        <% else %>
+          <%= content_tag :div, msg, class: "alert alert-alert", role: "alert" %>
+        <% end %>
+      <% end %>
+
       <%= flash[:notice] || flash[:error] || flash[:alert] || flash[:danger] %>
       <%= yield %>
     </div>
