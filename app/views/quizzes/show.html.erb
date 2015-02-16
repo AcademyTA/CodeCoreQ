@@ -4,7 +4,6 @@
 <h1><%= @quiz.title %></h1>
 <p>Quiz Body <%= @quiz.body %></p><br>
 <p>Quiz Category <%= @category.title %></p><br>
-<p>Quiz Level <%= @quiz.level %></p><br>
 
 <%= link_to "Add questions", new_quiz_question_path(@quiz) %>
 <hr>
@@ -17,8 +16,69 @@
     <% end %>
 
   <hr>
-<% end %> 
+<% end %>
 
+
+
+
+<div class="container">
+
+
+  <!--- BEGIN QUESTION FRAME -->
+
+  
+  <div class="question-wrap">
+  <div class="col-sm-3 quiz-sidebar">
+    <div class="category-logo"><%= image_tag "images/JS_logo.gif", height: 120, width: 120 %></div>
+    <div class="quiz-level">
+       
+        <% if @quiz.level == 1 %>
+          Apprentice
+        <% end %>
+
+       <% if @quiz.level == 2 %>
+          Adept
+       <% end %>
+       
+       <% if @quiz.level == 3 %>
+        Code Wizard
+       <% end %>
+    </div>
+
+    <div class="quiz-points">80</div>
+    <div class="quiz-progress">50/100</div>
+
+
+  </div>
+  <div class="col-sm-1">
+    <div class="vertical-rule">&nbsp;</div>
+  </div>
+  <!--- question area -->
+  <div class="col-sm-7">
+    <!--- display current question progress -->
+    <div class="question-current">
+        Javascript Level 3 (8/10)
+
+    </div>
+    <!--- display full question data ---->
+    <div id="question_id">
+      <div class="question">What's your name? </div>
+      
+      <div class="snippet"> Code goes here </div>
+      
+      <div class="choices"> 
+      <a class="choice-link" href="#"> <div class="choice answer-row"><span class="choice-letter">A</span> My choice is this </div></a>
+        <a class="choice-link" href="#"><div class="choice answer-row"><span class="choice-letter">B</span> My choice is this </div>
+        <a class="choice-link" href="#"><div class="choice answer-row"><span class="choice-letter">C</span> My choice is this </div> 
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+</div>
 
 
 
