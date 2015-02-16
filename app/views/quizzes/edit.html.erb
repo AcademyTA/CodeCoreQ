@@ -2,15 +2,21 @@
 <div class="form-container">
   <div class="well">
   <h2>Edit Quiz</h2>
-    <%= form_for :quiz, url: quiz_path(@quiz), method: :patch do |f| %>
+  <%= form_for :quiz, url: quiz_path(@quiz), method: :patch do |f| %>
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %><br>
     <%= f.label :body %>
     <%= f.text_area :body, class: 'form-control' %><br>
+    
     <%= f.label :level %>
-    <%= f.number_field :level, class: 'form-control' %><br>
-
-    Select a category
+    <%= f.radio_button :level, "1", :checked => true %>
+    <%= f.label :"1", "1", :value => "1" %> 
+    <%= f.radio_button :level, "2" %>
+    <%= f.label :level, "2", :value => "2" %>
+    <%= f.radio_button :level, "3" %>
+    <%= f.label :level, "3", :value => "3" %>
+    <br>
+    <%= f.label "Select a Category" %>
     <%= f.radio_button(:category_id, "1") %>
     <%= f.label(:category_id, "blue") %>
 
@@ -19,7 +25,7 @@
 
     <%= f.radio_button(:category_id, "5") %>
     <%= f.label(:category_id, "purple") %>
-
+    <br>
 
     <%= f.submit class: "btn btn-success" %>
     <%= button_tag "Reset", type: :reset, class: "btn btn-danger" %>

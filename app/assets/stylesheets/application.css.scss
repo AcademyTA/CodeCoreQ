@@ -15,6 +15,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:100,300,700);
 
 $brand-primary: #23AC9B;
+$brand-info: #444444;
 $font-family-sans-serif: 'Lato', sans-serif;
 $font-size-base: 14px;
 
@@ -40,6 +41,13 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.well-branded {
+.well-none {
+  // background-color: rgba(35,172,155,1);
+  background-color: white;
+  border: 1px solid rgba(53,53,53,0.1);
+}
+
+.grey {
   background-color: rgba(35,172,155,1);
 }
+
