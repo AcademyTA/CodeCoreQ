@@ -1,6 +1,10 @@
 <h2>ALL QUIZZES</h2>
 <!-- <p>views/quizzes/index.html.erb</p> -->
+
+<% if current_user.admin %>
 <%= link_to 'Add a quiz', new_quiz_path %>
+<% end %>
+
 <hr>
 
 <% @quizzes.each do |q| %>
@@ -16,7 +20,11 @@
     <% end %>
   <% end %>
 
+<% if current_user.admin %>
+
   <p><%= link_to 'Edit', edit_quiz_path(q) %></p>
   <p><%= link_to 'Delete', quiz_path(q), method: :delete, data: {confirm: "you sure?"} %></p>
+
+<% end %>
   <hr>
 <% end %>

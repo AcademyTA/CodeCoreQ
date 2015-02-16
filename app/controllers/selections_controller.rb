@@ -2,7 +2,9 @@ class SelectionsController < ApplicationController
   before_action :find_answer, only: [:create, :update]
 
   def create
-#    render :text => params.inspect
+    # render text: params
+   # render :text => params.inspect
+   
     selection = Selection.new(user_id: current_user.id, answer_id: @answer.id )
 
     if selection.save
@@ -27,7 +29,7 @@ class SelectionsController < ApplicationController
   private 
 
   def find_answer
-    @answer = Answer.find(params[:answer_id])
+    @answer = Answer.find(params[:answer_id] || params[:id])
   end
 
   def find_user
