@@ -1,21 +1,15 @@
 <br>
 <%= link_to 'Category Index', categories_path %> 
 <br>
-
 <center><h1><%= @category.title %></h1></center>
 <br> 
-
 <h2>Quizzes</h2>
 <hr>
 <% if @category.quizzes.empty? %>
-
   It is 2:48AM; it is empty everywhere just like your <%= @category.title %> category! <br><br><br>
-
   <%= link_to "Start by adding a new quiz!", new_quiz_path %>
-  
-
 <% else %>
-
+  <%= link_to "Add more quizzes :) ", new_quiz_path%><br><br><br>
     <ul>
       <% @category.quizzes.each do |q| %>
         <li>
