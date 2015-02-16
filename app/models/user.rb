@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :user_quizzes, dependent: :destroy
   has_many :quizzes, through: :user_quizzes
 
-  attr_accessor :remember_token#, #:activation_token
+  attr_accessor :remember_token, :activation_token
   before_save   :downcase_email
   before_create :create_activation_digest
   

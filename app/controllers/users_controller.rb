@@ -22,7 +22,7 @@ before_action :admin_user, only: :destroy
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to the quiz app!"
       redirect_to @user
     else
       render 'new'
