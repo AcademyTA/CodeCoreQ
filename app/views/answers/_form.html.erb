@@ -1,4 +1,4 @@
-<h1> Add an answer </h1> 
+<h1>Add an answer</h1> 
 
 <%= form_for :answer, url: question_answers_path(@question) do |f| %>
 
@@ -6,7 +6,7 @@
   <%= f.text_area :body %> 
 
   <%= f.label :correct %>
-  <%= f.text_field :correct %>  
+  <%= f.check_box :correct %>  
   <!-- make above boolean -->
   <%# f.label :question_id %>
    
