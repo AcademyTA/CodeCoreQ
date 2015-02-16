@@ -42,6 +42,24 @@ class User < ActiveRecord::Base
       update_attribute(:remember_digest, nil)
     end
 
+    # calculate a user's experience XP points
+    def xp
+      answers.inject do |xp, ans|
+        ans.value
+      end
+    end
+
+    # calculate a user's particular quiz's score
+    def score(quiz)
+      answers.inject do |score, ans|
+        if ans.question.quiz == quiz
+          ans.value
+        else
+          0
+        end
+      end
+    end
+
       private 
 
         def downcase_email
