@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :selections, dependent: :destroy
   has_many :answers, through: :selections
 
-  has_many :user_quizzes, dependent: :destroy
+  has_many :user_quizzes, dependent: :nullify
   has_many :quizzes, through: :user_quizzes
 
   attr_accessor :remember_token#, #:activation_token
