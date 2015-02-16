@@ -4,5 +4,8 @@ class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
 
   validates :title, presence: true, uniqueness: true
-  
+
+  def points_per_question
+    ( 100 / quiz.questions.count ) * level
+  end  
 end
