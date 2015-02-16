@@ -28,6 +28,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: rgba(255,255,255,0.5);
+  padding: 20px;
   // padding: 20px;
   // border-radius: 20px;
   // background-color: rgba(255,255,255,0.2);
@@ -38,6 +40,9 @@ body {
       color: black;
       margin: 0;
       // text-shadow: 1px 1px 5px rgba(203,13,15,0.7);
+    }
+    h3 {
+      text-shadow: 2px 2px 2px rgba(53,53,53,1);
     }
 }
 
@@ -94,7 +99,8 @@ body {
   height: 700px;
   position: relative;
   margin: 0 auto;
-  // background-color: #444444; 
+  // background-color: rgba(35,172,155,0.5);
+  background-color: white;
 }
 
 .carousel-container {
@@ -106,7 +112,7 @@ body {
   height: 300px !important;
 }
 .carousel-text {
-  background-color: rgba(53,53,53,0.4);
+  background-color: rgba(35,172,155,0.3);
 }
 
 @media (max-width: 767px) {
