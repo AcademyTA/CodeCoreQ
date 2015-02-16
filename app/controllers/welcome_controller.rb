@@ -6,4 +6,15 @@ class WelcomeController < ApplicationController
   
   def index
   end
+
+
+  def about
+
+    redirect_to :index
+    # render text: params
+    # @quiz = Quiz.find params[:id] 
+    # @answer = Answer.find params[:question][:id]
+  end
+
+
 end
