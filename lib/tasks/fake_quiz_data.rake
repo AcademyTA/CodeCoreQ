@@ -33,8 +33,11 @@ namespace :fake_quiz_data do
     # generate 3 answers for each question
     Question.all.each do |question|
       3.times do
-        answer = question.answers.create(body: Faker::Lorem.sentences(5), correct: [true, false].sample)
+        answer = question.answers.create(body: Faker::Lorem.sentences(5), correct: false)
       end
+
+      # initialize all 3 answers to false, choose one at random set to true
+      question.answers.sample.update(correct: true)
     end
 
     User.all.each do |u|
