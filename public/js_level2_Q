@@ -1,0 +1,249 @@
+
+Javascript
+
+very basics 
+(question)
+How to write an IF statement in JavaScript?
+a - if i = 1
+b - if i == 1 then
+c - if (i == 1) (t)
+Sorry the correct answer is c
+
+
+
+(question)
+How to write an IF statement for executing some code if "i" is NOT equal to 5?
+a - if i =! 1 then
+b - if (i != 1) (t)
+c - if i <> 1
+
+Sorry the correct answer is b
+
+
+
+  (question)
+How does a WHILE loop start? 
+a - while i = 1 to 10
+b - while (i <= 1) (t)
+c - while (i <= 11; i++)
+
+Sorry the correct answer is b
+
+
+(question)
+4 How does a FOR loop start?
+a - for (i = 0; i <= 10; i++) (t)
+b - for i = 1 to 10
+c - for (i <= 10; i++)
+Sorry the correct answer is a
+
+
+
+
+
+      1
+
+The Basics
+
+  function() {
+    var a = 10;
+    if(a > 5) {
+        a = 7;
+    }
+    alert(a);
+}
+
+(question)
+When executed, what value will be alerted to the screen?
+
+a - 7 (t)
+b - 10
+c - null
+
+Sorry, the correct answer is: 7
+
+What happens here is exactly as you might expect. You declare a local variable and set its value to 10. Its value is indeed greater than 5, so you set its value to 7. You then alert this new value, 7.
+
+
+
+
+
+
+
+
+
+        2
+   Function Scope
+   function() {
+    if(true) {
+        var a = 5;
+    }
+    alert(a);
+}
+  (question)
+ what would be the value alerted by this function?
+
+a - 0
+b - 5 (t)
+c - null
+
+
+Sorry, the correct answer is: 5
+
+So, what does that mean here? Essentially, if you do indeed enter that if statement (which you must, because true is always truthy), a new variable, a, will be allocated at the scope of that function. Anything else in that function, even if its not in the if statement, has access to the variable a. However, nothing outside of that function has access to a.
+
+
+
+
+
+
+
+
+
+
+
+
+         3
+// Global Variables //
+ var a = 5;
+function first() {
+    a = 6;
+}
+
+
+function second() {
+    alert(a);
+} 
+
+(question)
+Assuming I call these functions in order, what value gets alerted?
+
+a - 0
+b - 5
+c - 6 (t)
+
+the correct answer is: 6
+Here, we allocate a global variable a and set its value to 5. By calling first(), we change its value to 6. This value, 6, then gets alerted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        4
+ function first() {
+    window.a = 3;
+}
+
+
+function second() {
+    alert(a);
+} 
+
+(question)
+Assuming I call these functions in order, what s alerted?
+
+
+a - 0
+b - 3 (t)
+c -null
+
+the correct answer is: 3
+Recall that global variables are really stored in the window object. So, when I call first(), I set the global variable a to 3. Next, second() looks for a variable a to alert to the screen. In this case, the only a it can find is the global variable, so it alerts 3 to the screen.
+
+
+
+
+
+
+
+
+
+     5
+The Variable Stack 
+ var a = 5;
+
+ function() {
+    var a = 7;
+    alert(a);
+}
+
+(question)
+There are now two variables with the same name, a. Which one does Javascript pick?
+a - 5 
+b - 7 (t)
+c - null
+
+the correct answer is: 7
+in this case, it starts looking for a variable a at the level of this function. It finds it, so thats the one it settles with. It never reaches the global variable. So, the value 7 is alerted to the screen.
+
+
+
+
+
+
+
+    6
+
+ var a = 6;
+function test() {
+    var a = 7;
+    function again() {
+        var a = 8;
+        alert(a);  // First
+    }
+    again();
+    alert(a);  // Second
+}
+test();
+​alert(a);​  // Third
+
+(question)
+When executed, this will pop up three alerts. In order, what are they?
+
+
+a - 6; 7; 8
+b - 7; 6; 8
+c - 8; 7; 6 (t)
+
+ the correct answer is: 8; 7; 6
+
+ The first, found in again(), will alert the value 8. The next, found in test(), will alert 7. The third, found at the end, will alert 6. Each time, the Javascript interpreter searches for the most local variable it can find, and uses that one. So, when executing again(), despite there being an a that has a value of 7, and an a that has a value of 6, the interpreter never finds them, because the one directly within again() is most local.
+
+
+
+
+
+
+
+
+      7
+//Closures//
+
+function getFunc() {
+    var a = 7;
+    return function(b) {
+        alert(a+b);
+    }
+}
+var f = getFunc();
+f(5);
+ (question)
+What's alerted to the screen?
+
+a - 5
+b - 7
+c - 12 (t)
+
+the correct answer is: 12
+Essentially, getFunc() returns a reference to another, anonymous function. Later on, we call that function, and it still has access to all of the variables it had access to at the time of creation. All of these variables that the function has access to at its creation create a closure, which sticks around for as long as the function pointer itself does.
+
