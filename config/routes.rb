@@ -13,15 +13,21 @@ Rails.application.routes.draw do
 
 
   get 'users/new'
+
   resources :quizzes do 
     resources :questions
   end 
 
   resources :questions do
-    resources :answers, only: [:new, :create, :update]
+    resources :answers, only: [:new, :create, :update] do
+      resources :selections, only: [:create, :update]
+    end
   end
   
-  resources :categories
+  resources :categories do
+    resources :quizzes
+  end
+
   resources :password_resets,     only: [:new, :create, :edit, :update]
   
   root 'welcome#index'
