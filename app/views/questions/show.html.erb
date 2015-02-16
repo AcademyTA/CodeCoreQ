@@ -1,12 +1,18 @@
-<%= @question.title  %><br>
-<%= @question.body  %><br>
-<%= @question.explanation %><br>
-<br>
+<h1>Question Title: <%= @question.title  %></h1>
 
+<p><h2>Question body: <%= @question.body %></h2></p>
 
+<hr>
 
-<% @answers.each do |a| %>
-<%= a.body %>
-<%= a.correct %>
-<%= a.question_id %>
-<% end%>
+<ol>
+  <% @answers.each do |a| %>
+    <li>
+      Answer: <%= a.body %><br>
+      Answer is correct? <%= a.correct %><br>
+      Answer's Question ID:<%= a.question_id %>
+    </li><br>
+  <% end%>
+</ol>
+
+<hr>
+<h2><%= @question.explanation %></h2>
