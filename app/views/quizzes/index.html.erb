@@ -1,7 +1,6 @@
 <h2>ALL QUIZZES</h2>
 <!-- <p>views/quizzes/index.html.erb</p> -->
 <%= link_to 'Add a quiz', new_quiz_path %>
-<br>
 <hr>
 
 <% @quizzes.each do |q| %>
@@ -9,6 +8,14 @@
   <p>Quiz description: <%= q.body %></p>
   <p>Category: <%= Category.find(q.category_id).title  %></p>
   <p>Level: <%= q.level %></p>
+
+  <!-- if a user has take this quiz before, display this user's score on that quiz -->
+  <% q.user_quizzes.each do |uq| %>
+    <% if uq.user_id == current_user.id %>
+      <strong><%= "user #{current_user.name}   has taken this quiz before, score: #{current_user.score(uq.quiz)}" %></strong>
+    <% end %>
+  <% end %>
+
   <p><%= link_to 'Edit', edit_quiz_path(q) %></p>
   <p><%= link_to 'Delete', quiz_path(q), method: :delete, data: {confirm: "you sure?"} %></p>
   <hr>

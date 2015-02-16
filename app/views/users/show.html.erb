@@ -1,20 +1,21 @@
 <h1><%= @user.name %></h1>
- 
 
-<h3> User Experience total points: <%= @user.xp %></h3>
+<h3> User total XP points: <%= @user.xp %></h3>
 
   <div class="row">
     <aside class="col-md-4">
       <section class="user_info">
-        <h1>
-           <% @user.quizzes.each do |q| %>
-          <p>Title: <%= q.title %></p>
-          <p>Category Title: <%= Category.find(q.category_id).title  %></p>
-          <p>Level: <%= q.level %></p>
+        <ul>
+          <% @user.quizzes.each do |q| %>
+          <li>
+            <h2>Quiz title: <%= q.title %></h2>
+            <p>Category Title: <%= Category.find(q.category_id).title  %></p>
+            <p>Level: <%= q.level %></p>
 
-          <p>Score: <%= @user.score(q) %></p>
+            <p>User score for this quiz: <%= @user.score(q) %></p>
+          </li>
           <% end %>
-        </h1>
+        </ul>
      </section>
    </aside>
  </div>
