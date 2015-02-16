@@ -9,10 +9,12 @@ before_action :admin_user, only: :destroy
   end
 
   def index
+    @quizzes = Quiz.all
     @users = User.paginate(page: params[:page])
   end
 
   def show 
+    @quizzes = Quiz.all
     @user = User.find(params[:id]) 
   end
 
