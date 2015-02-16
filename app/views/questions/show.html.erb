@@ -1,9 +1,7 @@
 <h1>Question Title: <%= @question.title  %></h1>
-
-<p><h2>Question body: <%= @question.body %></h2></p>
+Question body: <%= @question.body %>
 
 <hr>
-
 <ol>
   <% @answers.each_with_index do |a, i| %>
     <li>
@@ -18,3 +16,7 @@
 
 <hr>
 <h2><%= @question.explanation %></h2>
+
+
+<%#= link_to "Prev Question", quiz_question_path(@quiz, q), class: "btn btn-md btn-info" %>
+<%#= link_to "Next Question", quiz_question_path(@quiz, q), class: "btn btn-md btn-info" %>
