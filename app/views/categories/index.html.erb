@@ -2,14 +2,21 @@
 <h1>Show All Categories Page</h1>
 <p>views/categories/index.html.erb</p>
 
-<h1>Add a Category</h1>
-<%= render "form" %>
+<% if current_user.admin %>
+  <h1>Add a Category</h1>
+  <%= render "form" %>
+<% end %>
 <br>
 <br>
 <br>
 <% @categories.each do |c| %>
   <p><%= link_to c.title, category_path(c) %></p>
-  <p><%= link_to 'edit', edit_category_path(c), class: "btn btn-xs btn-primary" %>
-  <%= link_to 'delete', category_path(c), method: :delete, data:{confirm: "you sure"}, class: "btn btn-xs btn-danger" %></p>
+
+  <% if current_user.admin %>
+
+    <p><%= link_to 'edit', edit_category_path(c), class: "btn btn-xs btn-primary" %>
+    <%= link_to 'delete', category_path(c), method: :delete, data:{confirm: "you sure"}, class: "btn btn-xs btn-danger" %></p>
+
+  <% end %>
   <hr>
 <% end %>
