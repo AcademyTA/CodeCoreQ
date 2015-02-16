@@ -5,7 +5,8 @@ class Answer < ActiveRecord::Base
   has_many :users, through: :selections
 
   validates :body, presence: true
-  validates :correct, presence: true
+  validates :correct, inclusion: { in: [true, false] }
+
 
   def value
     correct ? question.quiz.per_question_point : 0
