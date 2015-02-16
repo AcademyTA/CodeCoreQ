@@ -11,26 +11,27 @@
 <%#= link_to "Add questions", new_quiz_question_path(@quiz) %>
 <hr>
 
-<% @questions.each do |q| %>
-  Question Title: <%= q.title %> <br>
-  Question Body: <%= q.body %> <br>
+<!--
+  <% @questions.each do |q| %>
+    <h3>Question Title: <%= q.title %></h3><br>
+    Question Body: <%= q.body %> <br>
 
-    <%= form_for q, url: quiz_path(@quiz), method: :update do |f| %>
+      <%= form_for q, url: quiz_path(@quiz), method: :update do |f| %>
 
-         <% q.answers.each do |a| %>
-       
-            Answer Body: 
-            <%= f.radio_button(:id, a.id) %>
-            <%= f.label(:body, a.body ) %><br>
+           <% q.answers.each do |a| %>
+         
+              Answer Body: 
+              <%= f.radio_button(:id, a.id) %>
+              <%= f.label(:body, a.body ) %><br>
+        
+          <%end%>
+          <%= f.submit :value => "submit answer" %>
       
-        <%end%>
-        <%= f.submit :value => "submit answer" %>
-    
-    <% end %>
+      <% end %>
 
-  <hr>
-<% end %>
-
+    <hr>
+  <% end %>
+-->
 
 <ul>
   <% @questions.each do |q| %>

@@ -14,6 +14,7 @@ class SelectionsController < ApplicationController
       answer_grade = @answer.correct ? "This is CORRECT" : "This is WRONG"
       if @answer.correct == true
         redirect_to quiz_question_path(@answer.question.quiz, @answer.question), notice: answer_grade
+        
       else
         redirect_to quiz_question_path(@answer.question.quiz, @answer.question), alert: answer_grade
         #render nothing: true
