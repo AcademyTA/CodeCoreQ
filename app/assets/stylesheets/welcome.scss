@@ -76,7 +76,14 @@ body {
   margin-bottom: 30px;
 }
 
+.navbar-brand {
+  padding: 0;
+}
 
+.main-logo {
+  height: 40px;
+  padding-top: 5px;
+}
 
 
 @media (max-width: 767px) {
