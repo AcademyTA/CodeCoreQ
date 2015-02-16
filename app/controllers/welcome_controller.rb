@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
-  protect_from_forgery with: :exception
-  include SessionsHelper
+ include WelcomeHelper
+  before_action :check_login
+ 
   layout "welcome"
   
   def index

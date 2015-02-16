@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   
   resources :categories
   resources :password_resets,     only: [:new, :create, :edit, :update]
-
+  
   root 'welcome#index'
 
 
