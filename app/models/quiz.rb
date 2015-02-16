@@ -14,9 +14,10 @@ class Quiz < ActiveRecord::Base
   def per_question_point
     q_count = questions.count
     if q_count != 0
-      ( 100 / q_count ) * level
+      100 / q_count
     else
       0
     end
   end
+
 end

@@ -42,15 +42,17 @@ namespace :fake_quiz_data do
 
     User.all.each do |u|
 
-      # generate random selection pairings between users and answers
-      10.times do
-        selection = u.selections.create(answer_id: Answer.select("id").sample.id )
-      end
-
       # generate random UserQuiz pairings between users and quizzes
       2.times do
         userquiz = u.user_quizzes.create(quiz_id: Quiz.select("id").sample.id )
-      end 
+
+        # generate selection pairings between users and answers based on userquiz
+        userquiz.quiz.questions.each do |question|
+          selection = u.selections.create(answer_id: question.answers.sample.id)
+        end
+      end
+
+
     end
 
   end

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :user_quizzes, dependent: :nullify
   has_many :quizzes, through: :user_quizzes
 
-  attr_accessor :remember_token#, #:activation_token
+  attr_accessor :remember_token, :activation_token
   before_save   :downcase_email
   before_create :create_activation_digest
   
@@ -44,20 +44,24 @@ class User < ActiveRecord::Base
 
     # calculate a user's experience XP points
     def xp
-      answers.inject do |xp, ans|
-        ans.value
+      total = 0
+      answers.each do |ans|
+        total += (ans.value * ans.question.quiz.level)
       end
+      return total
     end
 
     # calculate a user's particular quiz's score
     def score(quiz)
-      answers.inject do |score, ans|
+      quiz_total = 0
+      answers.each do |ans|
         if ans.question.quiz == quiz
-          ans.value
+          quiz_total += ans.value
         else
           0
         end
       end
+      return quiz_total
     end
     def create_reset_digest
     self.reset_token = User.new_token
