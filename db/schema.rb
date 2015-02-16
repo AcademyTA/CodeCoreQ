@@ -38,9 +38,11 @@ ActiveRecord::Schema.define(version: 20150216003809) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "body"
+    t.integer  "answer_id"
     t.text     "explanation"
   end
 
+  add_index "questions", ["answer_id"], name: "index_questions_on_answer_id", using: :btree
   add_index "questions", ["quiz_id"], name: "index_questions_on_quiz_id", using: :btree
 
   create_table "quizzes", force: :cascade do |t|
@@ -90,6 +92,7 @@ ActiveRecord::Schema.define(version: 20150216003809) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "answers", "questions"
+  add_foreign_key "questions", "answers"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "selections", "answers"
   add_foreign_key "selections", "users"

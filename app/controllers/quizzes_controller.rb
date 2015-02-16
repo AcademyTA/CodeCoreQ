@@ -19,6 +19,7 @@ class QuizzesController < ApplicationController
   def show
     @quiz = Quiz.find(params[:id])
     @category = Category.find(@quiz.category_id)
+    @questions = @quiz.questions
   end
 
 

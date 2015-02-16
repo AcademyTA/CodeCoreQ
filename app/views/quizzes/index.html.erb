@@ -5,7 +5,7 @@
 <hr>
 
 <% @quizzes.each do |q| %>
-  <p>Title: <%= q.title %></p>
+  <p>Title: <%= link_to q.title, quiz_path(q) %></p>
   <p>Body: <%= q.body %></p>
   <p>Category Title: <%= Category.find(q.category_id).title  %></p>
   <p>Level: <%= q.level %></p>
