@@ -11,5 +11,6 @@
   <p>Level: <%= q.level %></p>
   <p><%= link_to 'Edit', edit_quiz_path(q) %></p>
   <p><%= link_to 'Delete', quiz_path(q), method: :delete, data: {confirm: "you sure?"} %></p>
+  <p><%= link_to 'Show', quiz_path(q) %></p>
   <hr>
 <% end %>

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end 
 
   resources :questions do
-    resources :answers, only: [:create, :update]
+    resources :answers, only: [:new, :create, :update]
   end
   
   resources :categories

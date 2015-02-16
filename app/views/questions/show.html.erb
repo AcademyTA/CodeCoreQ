@@ -1,0 +1,12 @@
+<%= @question.title  %><br>
+<%= @question.body  %><br>
+<%= @question.explanation %><br>
+<br>
+
+
+
+<% @answers.each do |a| %>
+<%= a.body %>
+<%= a.correct %>
+<%= a.question_id %>
+<% end%>

@@ -1,14 +1,22 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :find_question, only: [:update] 
 
+  def new
+    # render text: params
+    @question = Question.find params[:question_id]
+  end
+
   def create
-    @answer = Answer.new answer_params
-    if @answer.save
-      redirect_to quiz_questions_path(@question.quiz), notice: "Answer created successfully."
-    else
-      redirect_to quiz_questions_path(@question.quiz), alert: "Answer FAILED to create."
-    end
+    # render text: params
+      @question = Question.find params[:question_id]
+      @answer = Answer.new answer_params
+      @answer.question_id = @question.id
+      if @answer.save
+        redirect_to quiz_questions_path(@question.quiz), notice: "Answer created successfully."
+      else
+        redirect_to quiz_questions_path(@question.quiz), alert: "Answer FAILED to create."
+      end
   end
   def update
     #find_quiz
@@ -26,6 +34,6 @@ class AnswersController < ApplicationController
     @question = Quiz.find(params[:question_id])
   end
   def answer_params
-    params.require(:answer).permit(:body, :correct)
+    params.require(:answer).permit(:body, :correct, :question_id)
   end
 end

@@ -41,7 +41,7 @@ namespace :fake_quiz_data do
 
       # generate random selection pairings between users and answers
       10.times do
-        selection = u.selections.create(points: rand(500), answer_id: Answer.select("id").sample.id )
+        selection = u.selections.create(answer_id: Answer.select("id").sample.id )
       end
 
       # generate random UserQuiz pairings between users and quizzes
