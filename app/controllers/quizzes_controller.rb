@@ -20,6 +20,16 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find(params[:id])
     @category = Category.find(@quiz.category_id)
     @questions = @quiz.questions
+
+    new_user_quiz = true
+    UserQuiz.all.each do |uq|
+      if uq.quiz == @quiz && uq.user == current_user
+        new_user_quiz = false
+      end
+    end
+    if new_user_quiz
+      UserQuiz.create(user_id: current_user.id, quiz_id: @quiz.id)
+    end
   end
 
 
