@@ -47,10 +47,11 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+    <br>
     <div class="container">
       <% flash.each do |name, msg| %>
         <% if name=="notice" %>
-          <%= content_tag :div, msg, class: "alert alert-notice", role: "alert" %>
+          <%= content_tag :div, msg, class: "alert alert-success", role: "alert" %>
         <% elsif name=="alert" %>
           <%= content_tag :div, msg, class: "alert alert-warning", role: "alert" %>
         <% elsif name=="error" %>
@@ -63,8 +64,9 @@
           <%= content_tag :div, msg, class: "alert alert-alert", role: "alert" %>
         <% end %>
       <% end %>
-
-      <%= flash[:notice] || flash[:error] || flash[:alert] || flash[:danger] %>
+      <%#= flash[:notice] || flash[:error] || flash[:alert] || flash[:danger] %>
+    </div>
+    <div class="container">
       <%= yield %>
     </div>
   </body>
