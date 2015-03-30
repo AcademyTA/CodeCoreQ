@@ -1,35 +1,73 @@
-<div id="question_id">
-  <div class="question"><%= @question.title %></div>
-  <div class="snippet"><%= @question.body %></div>
-  <br>
-  <div class="choices"> 
-    <% @answers.each_with_index do |a, i| %>
-      <% if i == 0 %>
-        <% letter = "A" %>
-      <% elsif i == 1 %>
-        <% letter = "B" %>
-      <% else %>
-        <% letter = "C" %>
+<div class="question-wrap">
+  <div class="col-sm-3 quiz-sidebar">
+    <div class="category-logo">
+      <% if @question.quiz.category.title == "JavaScript" %>
+        <%= image_tag "images/JS_logo.gif", height: 120, width: 120 %>
+      <% elsif @question.quiz.category.title == "Ruby" %>
+        <%= image_tag "images/RB_logo.gif", height: 120, width: 120 %>
+      <% elsif @question.quiz.category.title == "HTML" %>
+        <%= image_tag "images/HTML_logo.gif", height: 120, width: 120 %>
+      <% elsif @question.quiz.category.title == "CSS" %>
+        <%= image_tag "images/CSS_logo.gif", height: 120, width: 120 %>
       <% end %>
-      <%= link_to question_answer_selections_path(a.question, a), method: :post, class: "choice-link" do %>
-        <div class="choice answer-row">
-          <%= "#{letter}" %>: &nbsp;<%= a.body %>
-        </div>
+    </div>
+    <div class="quiz-level">       
+      <% if @question.quiz.level == 1 %>
+        Level: Apprentice
+      <% elsif @question.quiz.level == 2 %>
+        Level: Adept
+      <% elsif @question.quiz.level == 3 %>
+        Level: Code Wizard
       <% end %>
-      <div>
-        <p>
-          Answer: <%= a.body %><br>
-          Answer is correct? <%= a.correct %><br>
-          Answer's Question ID:<%= a.question_id %><br>
-        </p>
+    </div>
+    <div class="quiz-points">Points: 80</div>
+    <div class="quiz-progress">Progress: 50/100</div>
+  </div>
+
+  <div class="col-sm-1">
+    <div class="vertical-rule">&nbsp;</div>
+  </div>
+  <!--- question area -->
+  <div class="col-sm-7">
+    <!--- display current question progress -->
+    <div class="question-current">Javascript Level 3 (8/10)</div>
+
+    <!-- Quiz Questions -->
+    <div id="question_id">
+      <div class="question"><%= @question.title %></div>
+      <div class="snippet"><%= @question.body %></div>
+      <br>
+      <div class="choices"> 
+        <% @answers.each_with_index do |a, i| %>
+          <% if i == 0 %>
+            <% letter = "A" %>
+          <% elsif i == 1 %>
+            <% letter = "B" %>
+          <% else %>
+            <% letter = "C" %>
+          <% end %>
+          <%= link_to question_answer_selections_path(a.question, a), method: :post, class: "choice-link" do %>
+            <div class="choice answer-row">
+              <%= "#{letter}" %>: &nbsp;<%= a.body %>
+            </div>
+          <% end %>
+          <div>
+            <p>
+              Answer: <%= a.body %><br>
+              Answer is correct? <%= a.correct %><br>
+              Answer's Question ID:<%= a.question_id %><br>
+            </p>
+          </div>
+      <% end%>
       </div>
-  <% end%>
+    </div>
+    <hr>
+
+    <h2>Question Explanation</h2>
+    <p><%= @question.explanation %></p>
   </div>
 </div>
-<hr>
 
-<h2>Question Explanation</h2>
-<p><%= @question.explanation %></p>
 
 <!--     <a class="choice-link" href="#"> <div class="choice answer-row"><span class="choice-letter">A</span> My choice is this </div></a>
     <a class="choice-link" href="#"><div class="choice answer-row"><span class="choice-letter">B</span> My choice is this </div>
