@@ -6,19 +6,18 @@ namespace :fake_quiz_data do
 
     # generate 3 user
     3.times do |n|
-      user = User.create(name: Faker::Internet.password(7), email: "example-#{n+1}@email.com", 
-                            password: "password", admin: [true, false].sample, activated: true )
+      User.create(name: Faker::Name.first_name, email: Faker::Internet.user_name + "@email.com", password: "password", admin: [true, false].sample, activated: true )
     end
 
-    # generate 2 category
-    2.times do |n|
-      category = Category.create(title: "Category-#{n+1}")
-    end
+    # generate 3 categories
+    Category.create(title: "Ruby")
+    Category.create(title: "JavaScript")
+    Category.create(title: "HTML")
 
     # generate 3 quiz for each category
     Category.all.each do |c|
       3.times do
-        quiz = c.quizzes.create(title: Faker::Company.bs, body: Faker::Lorem.sentence(10), level: [1, 2, 3].sample, category_id: Category.all.sample.id)
+        quiz = c.quizzes.create(title: Faker::Hacker.say_something_smart, body: Faker::Lorem.sentence(10), level: [1, 2, 3].sample, category_id: Category.all.sample.id)
       end
     end
 
@@ -34,7 +33,7 @@ namespace :fake_quiz_data do
     # generate 3 answers for each question
     Question.all.each do |question|
       3.times do
-        answer = question.answers.create(body: Faker::Lorem.sentences(5), correct: false)
+        question.answers.create(body: Faker::Lorem.sentence, correct: false)
       end
 
       # initialize all 3 answers to false, choose one at random set to true
