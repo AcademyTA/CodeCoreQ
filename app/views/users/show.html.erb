@@ -3,7 +3,7 @@
 <h3> User total XP points: <%= @user.xp %></h3>
 
   <div class="row">
-    <aside class="col-md-4">
+    <aside class="col-md-12">
       <section class="user_info">
         <ul>
           <% @user.quizzes.each do |q| %>
@@ -11,9 +11,9 @@
             <h2>Quiz title: <%= q.title %></h2>
             <p>Category Title: <%= Category.find(q.category_id).title  %></p>
             <p>Level: <%= q.level %></p>
-
             <p>User score for this quiz: <%= @user.score(q) %></p>
           </li>
+          <br>
           <% end %>
         </ul>
      </section>

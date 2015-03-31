@@ -9,9 +9,13 @@
 
 <%#= link_to 'My quizzes', quizzes_path %>
   <% if current_user.admin %>
-    <%= link_to "Add Questions and Answers", quiz_questions_path(@quiz), class: "btn btn-primary btn-sm" %>
-    <%= link_to 'Edit Quiz', edit_quiz_path(@quiz), class: "btn btn-warning btn-sm" %>
-    <%= link_to 'Delete Quiz', quiz_path(@quiz), method: :delete, data: {confirm: "you sure?"}, class: "btn btn-danger btn-sm" %>
+    <p>
+      <%= link_to 'Edit Quiz', edit_quiz_path(@quiz), class: "btn btn-warning btn-sm" %>
+      <%= link_to 'Delete Quiz', quiz_path(@quiz), method: :delete, data: {confirm: "you sure?"}, class: "btn btn-danger btn-sm" %>
+    </p>
+    <p>
+      <%= link_to "Add or Edit Questions and Answers", quiz_questions_path(@quiz), class: "btn btn-primary btn-sm" %>
+    </p>
   <% end %>
 <hr>
 
