@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end 
 
   resources :questions do
-    resources :answers, only: [:new, :create, :update] do
+    resources :answers, only: [:new, :create, :edit, :update, :destroy, :index] do
       resources :selections, only: [:create, :update]
     end
   end

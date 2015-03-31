@@ -10,7 +10,7 @@
 <br>
 <br>
 <% @categories.each do |c| %>
-  <p><%= link_to c.title, category_path(c) %></p>
+  <h3><%= link_to c.title, category_path(c) %></h3>
 
   <% if current_user.admin %>
 

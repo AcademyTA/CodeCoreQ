@@ -2,7 +2,7 @@
 <!-- <p>views/quizzes/index.html.erb</p> -->
 
 <% if current_user.admin %>
-<%= link_to 'Add a quiz', new_quiz_path %>
+  <%= link_to 'Add a quiz', new_quiz_path %>
 <% end %>
 
 <hr>
@@ -12,20 +12,20 @@
   <p>Quiz description: <%= q.body %></p>
   <p>Category: <%= Category.find(q.category_id).title  %></p>
   <p>Level: <%= q.level %></p>
+  <p>Number of Questions: <%= q.questions.count %></p>
 
   <!-- if a user has take this quiz before, display this user's score on that quiz -->
   <% q.user_quizzes.each do |uq| %>
     <% if uq.user_id == current_user.id %>
-      <strong><%= "user #{current_user.name}   has taken this quiz before, score: #{current_user.score(uq.quiz)}" %></strong>
+      <strong><%= "User #{current_user.name} has taken this quiz before, score: #{current_user.score(uq.quiz)}" %></strong>
     <% end %>
   <% end %>
-
-<% if current_user.admin %>
-
-  <p><%= link_to 'Edit', edit_quiz_path(q) %></p>
-  <p><%= link_to 'Delete', quiz_path(q), method: :delete, data: {confirm: "you sure?"} %></p>
-
-<% end %>
+<!-- 
+  <%# if current_user.admin %>
+    <p><%#= link_to 'Edit', edit_quiz_path(q) %></p>
+    <p><%#= link_to 'Delete', quiz_path(q), method: :delete, data: {confirm: "you sure?"} %></p>
+  <%# end %>
+ -->
   <hr>
   <%#= link_to "add to my user quiz",  %>
 <% end %>

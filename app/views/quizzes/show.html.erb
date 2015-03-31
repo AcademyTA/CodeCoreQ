@@ -8,30 +8,34 @@
 <p>Quiz Category: <%= @category.title %></p><br>
 
 <%#= link_to 'My quizzes', quizzes_path %>
-<%#= link_to "Add questions", new_quiz_question_path(@quiz) %>
+  <% if current_user.admin %>
+    <%= link_to "Add Questions and Answers", quiz_questions_path(@quiz), class: "btn btn-primary btn-sm" %>
+    <%= link_to 'Edit Quiz', edit_quiz_path(@quiz), class: "btn btn-warning btn-sm" %>
+    <%= link_to 'Delete Quiz', quiz_path(@quiz), method: :delete, data: {confirm: "you sure?"}, class: "btn btn-danger btn-sm" %>
+  <% end %>
 <hr>
 
+<% if 10 == 9 %><!-- Just to hide below Content -->
 <!--
+<% if current_user.admin %>
   <% @questions.each do |q| %>
-    <h3>Question Title: <%= q.title %></h3><br>
-    Question Body: <%= q.body %> <br>
+    <h3>Question Title: <%= q.title %></h3>
+    <p>Question Body: <%= q.body %></p><br>
 
       <%= form_for q, url: quiz_path(@quiz), method: :update do |f| %>
-
-           <% q.answers.each do |a| %>
-         
-              Answer Body: 
-              <%= f.radio_button(:id, a.id) %>
-              <%= f.label(:body, a.body ) %><br>
-        
-          <%end%>
-          <%= f.submit :value => "submit answer" %>
-      
+        <% q.answers.each do |a| %>
+          Answer Body: 
+          <%= f.radio_button(:id, a.id) %>
+          <%= f.label(:body, a.body ) %><br>
+        <%end%>
+        <%= f.submit :value => "submit answer" %>
       <% end %>
 
     <hr>
   <% end %>
+<% end %>
 -->
+<% end %>
 
 <ul>
   <% @questions.each do |q| %>
@@ -40,11 +44,9 @@
 </ul>
 
 <% if 10 == 9 %><!-- Just to hide below Content -->
-
+<!--
 <div class="container">
 
-  <!--- BEGIN QUESTION FRAME -->
-  
   <div class="question-wrap">
   <div class="col-sm-3 quiz-sidebar">
     <div class="category-logo">
@@ -75,12 +77,12 @@
   </div>
   <!--- question area -->
   <div class="col-sm-7">
-    <!--- display current question progress -->
+    - display current question progress 
     <div class="question-current">
         Javascript Level 3 (8/10)
 
     </div>
-    <!--- display full question data ---->
+    <!--- display full question data --->
     <div id="question_id">
       <div class="question">What's your name? </div>
       
@@ -99,7 +101,7 @@
 
 </div>
 </div>
-
+-->
 <% end %>
 
 

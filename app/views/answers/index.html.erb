@@ -1,0 +1,11 @@
+<h1>Answers Index</h1>
+<p>views/answers/index.html.erb</p>
+
+<h3><%= @question.title %></h3>
+<% @answers.each do |answer| %>
+  <hr>
+  <p><%= answer.body %></p>
+  <p>Correct? <%= answer.correct %></p>
+  <%= link_to "Edit", edit_question_answer_path(@question, answer) %>
+  <%= link_to "Delete", question_answer_path(@question, answer), method: :delete, class: "btn btn-danger btn-xs" %>
+<% end %>
