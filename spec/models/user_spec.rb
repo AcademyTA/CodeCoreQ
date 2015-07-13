@@ -48,6 +48,14 @@ RSpec.describe User, type: :model do
       user.save
       expect(user.email).to eq("hello@email.com")
     end
+    it "requires a password" do
+      user = User.new(valid_attributes({password: nil}))
+      expect(user).to be_invalid
+    end
+    it "requires a minimum length of 5 characters for the password" do
+      user = User.new(valid_attributes({password: "1234"}))
+      expect(user).to be_invalid
+    end
   end
 
   describe "Hashing password" do
