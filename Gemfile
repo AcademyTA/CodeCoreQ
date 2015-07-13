@@ -30,10 +30,8 @@ group :development, :test do
   gem "rails-erd"  # graphical ERD tool to generate PDF
 end
 
-group :text do
-  gem 'minitest-reporters'
-  gem 'mini_backtrace'
-  gem 'guard-minitest' 
+group :test do
+  gem 'rspec-rails'
 end
 
 group :production do
