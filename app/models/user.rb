@@ -3,11 +3,11 @@ class User < ActiveRecord::Base
   before_save   :downcase_email
   before_create :create_activation_digest
   has_secure_password
-  
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validates :name, presence: true, length: {minimum: 5, maximum: 30}
-  validates :email, presence: true, length: {maximum: 255},
+  validates :name, presence: true, length: {minimum: 5, maximum: 32}
+  validates :email, presence: true, length: {maximum: 32},
              format: {with: VALID_EMAIL_REGEX},
              uniqueness: {case_sensitive: false}
   validates :password, length: {minimum: 5 }, allow_blank: true
@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   has_many :user_quizzes, dependent: :nullify
   has_many :quizzes, through: :user_quizzes
   
-
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
@@ -66,9 +65,9 @@ class User < ActiveRecord::Base
   end
 
   def create_reset_digest
-  self.reset_token = User.new_token
-  update_attribute(:reset_digest,  User.digest(reset_token))
-  update_attribute(:reset_sent_at, Time.zone.now)
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
   end
 
   # Sends password reset email.
@@ -86,6 +85,5 @@ class User < ActiveRecord::Base
     self.activation_token = User.new_token
     self.activation_digest = User.digest(activation_token)
   end
-
 
 end
