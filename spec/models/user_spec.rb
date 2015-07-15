@@ -73,4 +73,15 @@ RSpec.describe User, type: :model do
     it { should have_many(:quizzes) }
   end
 
+  describe ".downcase_email method" do
+    it "changes email's characters to lowercase" do
+      u = User.new valid_attributes({email: "CODER@EmAiL.CoM"})
+      expect(u.email).to eq("CODER@EmAiL.CoM")
+      u.save # because its a before save hook
+      expect(u.email).to eq("coder@email.com")
+    end
+  end
+
+  it { should have_secure_password }
+
 end
