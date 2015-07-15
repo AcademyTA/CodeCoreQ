@@ -66,4 +66,11 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'associations' do
+    it { should have_many(:selections) }
+    it { should have_many(:answers) }
+    it { should have_many(:user_quizzes) }
+    it { should have_many(:quizzes) }
+  end
+
 end
