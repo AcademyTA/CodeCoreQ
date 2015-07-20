@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   def valid_attributes(new_attributes = {})
-
     attributes = {name: "Super", 
                   email: "awesome@codecoreq.ca",
                   password: "abcd1234"}
