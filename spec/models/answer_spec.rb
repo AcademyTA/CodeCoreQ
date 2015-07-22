@@ -24,4 +24,10 @@ RSpec.describe Answer, type: :model do
       expect(answer).to be_valid
     end
   end
+  
+  describe 'associations' do
+    it { should belong_to(:question) }
+    it { should have_many(:selections) }
+    it { should have_many(:users) }
+  end
 end
