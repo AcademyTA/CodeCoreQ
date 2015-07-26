@@ -6,7 +6,6 @@ before_action :admin_user, only: :destroy
 
   def new
      @user = User.new 
-     
   end
 
   def index
