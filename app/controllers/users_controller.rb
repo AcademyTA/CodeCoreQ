@@ -11,6 +11,7 @@ before_action :admin_user, only: :destroy
   def index
     @quizzes = Quiz.all
     @users = User.paginate(page: params[:page])
+    redirect_to users_url
   end
 
   def show 
