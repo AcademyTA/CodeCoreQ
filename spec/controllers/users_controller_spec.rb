@@ -43,6 +43,32 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(user)
       end
     end
+
+    context "with invalid parameters" do
+      def invalid_request
+        post :create, 
+        {
+          user: {
+            password: "abcd1234",
+            password_confirmation: "abcd1234"
+          }
+        }
+      end
+
+      it "doesn't create a user record in the database" do
+        expect { invalid_request }.to_not change { User.count }
+      end
+
+      it "renders the new template" do
+        invalid_request
+        expect(response).to render_template(:new)
+      end
+
+      it "sets an alert flash message" do
+        invalid_request
+        expect(flash[:alert]).to be
+      end
+    end
   end
 
 end

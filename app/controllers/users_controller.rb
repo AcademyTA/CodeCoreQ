@@ -26,6 +26,7 @@ before_action :admin_user, only: :destroy
       flash[:success] = "Welcome to the quiz app!"
       redirect_to @user
     else
+      flash[:alert] = "Unable to create Account!"
       render 'new'
     end
   end
