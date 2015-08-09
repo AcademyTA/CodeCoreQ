@@ -2,6 +2,9 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe UsersController, type: :controller do
+  let(:user)  { create(:user) }
+  let(:users) { 4.times.map { create(:user) } }
+
   describe '#new' do
     it 'instantiates a new user variable' do
       get :new
@@ -68,6 +71,15 @@ RSpec.describe UsersController, type: :controller do
         invalid_request
         expect(flash[:alert]).to be
       end
+    end
+  end
+
+  describe '#edit' do
+    before { log_in(user) }
+    before { get :edit, id: user.id }
+    
+    it 'instantiates a new user variable' do
+      expect(assigns(:user)).to eq(user)
     end
   end
 
