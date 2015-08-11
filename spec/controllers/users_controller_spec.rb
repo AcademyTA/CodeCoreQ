@@ -2,7 +2,9 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe UsersController, type: :controller do
-  let(:user)  { create(:user) }
+  let(:user)   { create(:user) }
+  let(:user_1) { create(:user_1) }
+
   let(:users) { 4.times.map { create(:user) } }
 
   describe '#new' do
@@ -75,11 +77,33 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe '#edit' do
-    before { log_in(user) }
-    before { get :edit, id: user.id }
-    
-    it 'instantiates a new user variable' do
-      expect(assigns(:user)).to eq(user)
+    context "user not signed in" do
+      before { get :edit, id: user.id }
+
+      it "redirects to sign in page" do
+        expect(response).to redirect_to login_path
+      end
+    end
+
+    context "owner user signed in" do
+      before { log_in(user) }
+      before { get :edit, id: user.id }
+
+      it "renders the edit template" do
+        expect(response).to render_template(:edit)
+      end
+
+      it "sets a user instance variable with the id passed" do
+        expect(assigns(:user)).to eq(user)
+      end
+    end
+
+    context "with non-owner user signed in" do
+      before { log_in(user) }
+
+      it "raises an error if a non-owners tries to edit" do
+        expect { get :edit, id: user_1.id }.to raise_error
+      end
     end
   end
 
