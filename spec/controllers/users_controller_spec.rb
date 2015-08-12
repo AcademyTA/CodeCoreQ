@@ -19,6 +19,37 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe '#show' do
+    context "user not signed in" do
+      before { get :show, id: user.id }
+
+      it "redirects to sign in page" do
+        expect(response).to redirect_to login_path
+      end
+    end
+
+    context "owner user signed in" do
+      before { log_in(user) }
+      before { get :show, id: user.id }
+
+      it "renders the show template" do
+        expect(response).to render_template(:show)
+      end
+
+      it "sets a user instance variable with the id passed" do
+        expect(assigns(:user)).to eq(user)
+      end
+    end
+
+    context "with non-owner user signed in" do
+      before { log_in(user) }
+
+      it "raises an error if a non-owners tries to show" do
+        expect { get :show, id: user_1.id }.to raise_error
+      end
+    end
+  end
+
   describe "#create" do
     context "with valid parameters" do
       def valid_request
