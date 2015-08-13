@@ -3,8 +3,7 @@ require 'spec_helper'
 
 RSpec.describe UsersController, type: :controller do
   let(:user)   { create(:user) }
-  let(:user_1) { create(:user_1) }
-
+  let(:user_1) { create(:user) }
   let(:users) { 4.times.map { create(:user) } }
 
   describe '#new' do
@@ -16,6 +15,29 @@ RSpec.describe UsersController, type: :controller do
     it 'renders the new template' do
       get :new
       expect(response).to render_template(:new)
+    end
+  end
+
+  describe '#index' do
+    context "user not signed in" do
+      before { get :index, id: user.id }
+
+      it "redirects to sign in page" do
+        expect(response).to redirect_to login_path
+      end
+    end
+
+    context "owner user signed in" do
+      before { log_in(user) }
+      before { get :index, id: user.id }
+
+      it "renders the index template" do
+        expect(response).to redirect_to(users_url)
+      end
+
+      it "sets a user instance variable with the id passed" do
+        expect(assigns(:users)).to eq([user, user_1])
+      end
     end
   end
 
