@@ -28,11 +28,11 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to login_path
       end
 
-      it "sets a user instance variable with the id passed" do
+      it "sets a users instance variable" do
         expect(assigns(:users)).not_to be
       end
 
-      it "sets a user instance variable with the id passed" do
+      it "sets a quizzes instance variable" do
         expect(assigns(:quizzes)).not_to be
       end
     end
@@ -45,11 +45,11 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(users_url)
       end
 
-      it "sets a user instance variable with the id passed" do
+      it "sets a users instance variable" do
         expect(assigns(:users)).to eq([user, user_1])
       end
 
-      it "sets a user instance variable with the id passed" do
+      it "sets a quizzes instance variable" do
         expect(assigns(:quizzes)).to eq([quiz, quiz_1])
       end
     end
@@ -58,6 +58,14 @@ RSpec.describe UsersController, type: :controller do
   describe '#show' do
     context "user not signed in" do
       before { get :show, id: user.id }
+
+      it "does not set a user instance variable" do
+        expect(assigns(:users)).not_to be
+      end
+
+      it "does not set a quizzes instance variable" do
+        expect(assigns(:quizzes)).not_to be
+      end
 
       it "redirects to sign in page" do
         expect(response).to redirect_to login_path
@@ -72,8 +80,12 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to render_template(:show)
       end
 
-      it "sets a user instance variable with the id passed" do
+      it "sets a user instance variable" do
         expect(assigns(:user)).to eq(user)
+      end
+
+      it "sets a quizzes instance variable" do
+        expect(assigns(:quizzes)).to eq([quiz, quiz_1])
       end
     end
   end
