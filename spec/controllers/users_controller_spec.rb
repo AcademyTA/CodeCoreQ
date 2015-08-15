@@ -170,4 +170,16 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe "#update" do
+    context "with user not signed in" do
+      it "does not set a user instance variable" do
+        expect(assigns(:user)).not_to be
+      end
+
+      it "redirects log_in path" do
+        patch :update, id: user.id, user: {name: "Lolo Jones"}
+        expect(response).to redirect_to(login_path)
+      end
+    end
+  end
 end
