@@ -181,5 +181,38 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to redirect_to(login_path)
       end
     end
+
+    context "with owner user signed in" do
+      before { log_in(user) }
+
+      def valid_attributes(new_attributes = {})
+        attributes_for(:user).merge(new_attributes)
+      end
+
+      context "with valid attributes" do
+        before do
+          patch :update,
+            id:   user.id, 
+            user: valid_attributes(name: "Yaya I am Lorde")
+        end
+
+        it "sets a user instance variable with the id passed" do
+          expect(assigns(:user)).to eq(user)
+        end
+
+        it "updates the record in the database" do
+          expect(user.reload.name).to eq "Yaya I am Lorde"
+        end
+
+        it "redirects to the show page" do
+          expect(response).to redirect_to(user_path(user))
+        end
+
+        it "sets a flash message" do
+          expect(flash[:success]).to be
+        end
+      end
+    end
   end
+
 end
