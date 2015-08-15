@@ -4,7 +4,9 @@ require 'spec_helper'
 RSpec.describe UsersController, type: :controller do
   let(:user)   { create(:user) }
   let(:user_1) { create(:user) }
-  let(:users) { 4.times.map { create(:user) } }
+  let(:users)  { 4.times.map { create(:user) } }
+  let(:quiz)   { create(:quiz) }
+  let(:quiz_1) { create(:quiz) }
 
   describe '#new' do
     it 'instantiates a new user variable' do
@@ -25,6 +27,14 @@ RSpec.describe UsersController, type: :controller do
       it "redirects to sign in page" do
         expect(response).to redirect_to login_path
       end
+
+      it "sets a user instance variable with the id passed" do
+        expect(assigns(:users)).not_to be
+      end
+
+      it "sets a user instance variable with the id passed" do
+        expect(assigns(:quizzes)).not_to be
+      end
     end
 
     context "owner user signed in" do
@@ -37,6 +47,10 @@ RSpec.describe UsersController, type: :controller do
 
       it "sets a user instance variable with the id passed" do
         expect(assigns(:users)).to eq([user, user_1])
+      end
+
+      it "sets a user instance variable with the id passed" do
+        expect(assigns(:quizzes)).to eq([quiz, quiz_1])
       end
     end
   end
@@ -60,14 +74,6 @@ RSpec.describe UsersController, type: :controller do
 
       it "sets a user instance variable with the id passed" do
         expect(assigns(:user)).to eq(user)
-      end
-    end
-
-    context "with non-owner user signed in" do
-      before { log_in(user) }
-
-      it "raises an error if a non-owners tries to show" do
-        expect { get :show, id: user_1.id }.to raise_error
       end
     end
   end
@@ -148,14 +154,6 @@ RSpec.describe UsersController, type: :controller do
 
       it "sets a user instance variable with the id passed" do
         expect(assigns(:user)).to eq(user)
-      end
-    end
-
-    context "with non-owner user signed in" do
-      before { log_in(user) }
-
-      it "raises an error if a non-owners tries to edit" do
-        expect { get :edit, id: user_1.id }.to raise_error
       end
     end
   end
