@@ -212,6 +212,26 @@ RSpec.describe UsersController, type: :controller do
           expect(flash[:success]).to be
         end
       end
+
+      context "with invalid attributes" do
+        before do
+          patch :update, 
+            id:   user.id, 
+            user: valid_attributes(name: "")
+        end
+
+        it "doesn't update the record in the database" do
+          expect(user.reload.name).to_not eq("")
+        end
+
+        it "renders the edit template" do
+          expect(response).to render_template(:edit)
+        end
+
+        it "sets a flash message" do
+          expect(flash[:alert]).to be
+        end
+      end
     end
   end
 

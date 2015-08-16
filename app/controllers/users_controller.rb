@@ -41,6 +41,7 @@ before_action :admin_user, only: :destroy
       flash[:success] = "Profile updated"
       redirect_to @user
     else
+      flash[:alert] = "Could not update profile"
       render 'edit'
     end
   end
