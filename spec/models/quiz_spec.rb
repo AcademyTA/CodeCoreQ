@@ -58,4 +58,12 @@ RSpec.describe Quiz, type: :model do
       expect(quiz).to be_valid
     end
   end
+
+  describe 'Associations' do
+    it { should belong_to(:category) }
+    it { should have_many(:questions) }
+    it { should have_many(:user_quizzes) }
+    it { should have_many(:users) }
+  end
+
 end
