@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe QuizzesController, type: :controller do
   let(:user) { create(:user) }
   let(:quiz) { create(:quiz) }
+  let(:all_categories) { 5.times { create(:category) } }
 
   describe "#new" do
     context "user signed in" do
@@ -15,6 +16,11 @@ RSpec.describe QuizzesController, type: :controller do
 
       it "set a instance variable to a new quiz" do
         expect(assigns(:quiz)).to be_a_new Quiz
+      end
+
+      it "set a instance variable to for all categories" do
+        all_categories
+        expect(assigns(:categories)).to eq(Category.all)
       end
     end
 
