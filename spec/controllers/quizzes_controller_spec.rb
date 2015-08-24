@@ -31,4 +31,46 @@ RSpec.describe QuizzesController, type: :controller do
       end
     end
   end
+
+  describe "#create" do
+
+    context "user signed in" do
+      before { log_in(user) }
+
+      context "with valid parameters" do
+        def valid_request
+          post :create,
+            { 
+              quiz: {
+                title: "Remember the Titans",
+                body: "Aint no mountain high enough",
+                level: 10,
+                category_id: 6
+              }
+            }
+        end
+
+        it "set a instance variable to for all categories" do
+          all_categories
+          valid_request
+          expect(assigns(:categories)).to eq(Category.all)
+        end
+
+        it "creates a new quiz in the database" do
+          expect { valid_request }.to change { Quiz.count }.by(1)
+        end
+
+        it "sets a flash message" do
+          valid_request
+          expect(flash[:success]).to be
+        end
+
+        it "redirect to quiz show page" do
+          valid_request
+          expect(response).to redirect_to(quiz_path(Quiz.last))
+        end
+      end
+    end
+  end
+
 end

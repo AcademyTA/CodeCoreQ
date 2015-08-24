@@ -11,8 +11,10 @@ class QuizzesController < ApplicationController
     @categories = Category.all
     @quiz = Quiz.new quiz_params
     if @quiz.save
+      flash[:success] = "Quiz Created!"
       redirect_to @quiz
     else
+      flash[:alert] = "Unable to create Quiz!"
       render :new
     end
   end
