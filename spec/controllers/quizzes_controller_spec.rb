@@ -70,7 +70,32 @@ RSpec.describe QuizzesController, type: :controller do
           expect(response).to redirect_to(quiz_path(Quiz.last))
         end
       end
+
+      context "with invalid parameters" do
+        def invalid_request
+          post :create, quiz: {title: "Lols Yo, Derp Derp"}
+        end
+
+        it "set a instance variable to for all categories" do
+          all_categories
+          invalid_request
+          expect(assigns(:categories)).to eq(Category.all)
+        end
+
+        it "doesn't create a record in the database" do
+          expect { invalid_request }.to change { Quiz.count }.by(0)
+        end
+
+        it "renders the new template" do
+          invalid_request
+          expect(response).to render_template(:new)
+        end
+
+        it "sets a flash message" do
+          invalid_request
+          expect(flash[:alert]).to be
+        end
+      end
     end
   end
-
 end
