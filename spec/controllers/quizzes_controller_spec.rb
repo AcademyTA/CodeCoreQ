@@ -97,5 +97,13 @@ RSpec.describe QuizzesController, type: :controller do
         end
       end
     end
+
+    context "user not signed in" do
+      it "redirects to sign in page" do
+        post :create, user: attributes_for(:user)
+        expect(response).to redirect_to login_path
+      end
+    end
   end
+
 end
