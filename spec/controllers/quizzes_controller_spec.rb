@@ -4,7 +4,9 @@ RSpec.describe QuizzesController, type: :controller do
   let(:user)           { create(:user) }
   let(:quiz)           { create(:quiz) }
   let(:category)       { create(:category) }
-  let(:all_categories) { 5.times { create(:category) } }
+  let(:all_categories) { create_list(:category, 5) }
+  let(:question)       { create(:question) }
+  let(:all_questions)  { create_list(:question, 5) }
 
   describe "#new" do
     context "user signed in" do
@@ -112,6 +114,7 @@ RSpec.describe QuizzesController, type: :controller do
 
       def valid_request
         quiz.category_id = category.id
+        quiz.questions   = all_questions
         quiz.save
         get :show, id: quiz
       end
@@ -121,7 +124,7 @@ RSpec.describe QuizzesController, type: :controller do
         expect(response).to render_template(:show)
       end
 
-      it "set a instance variable to a new quiz" do
+      it "set a instance variable for quiz" do
         valid_request
         expect(assigns(:quiz)).to eq(quiz)
       end
@@ -129,6 +132,11 @@ RSpec.describe QuizzesController, type: :controller do
       it "set a instance variable to for all categories" do
         valid_request
         expect(assigns(:category)).to eq(category)
+      end
+
+      it "set a instance variable to for all quiz questions" do
+        valid_request
+        expect(assigns(:questions)).to eq(all_questions)
       end
     end
   end
