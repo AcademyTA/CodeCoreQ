@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe QuizzesController, type: :controller do
-  let(:user) { create(:user) }
-  let(:quiz) { create(:quiz) }
+  let(:user)           { create(:user) }
+  let(:quiz)           { create(:quiz) }
+  let(:category)       { create(:category) }
   let(:all_categories) { 5.times { create(:category) } }
 
   describe "#new" do
@@ -33,7 +34,6 @@ RSpec.describe QuizzesController, type: :controller do
   end
 
   describe "#create" do
-
     context "user signed in" do
       before { log_in(user) }
 
@@ -102,6 +102,33 @@ RSpec.describe QuizzesController, type: :controller do
       it "redirects to sign in page" do
         post :create, user: attributes_for(:user)
         expect(response).to redirect_to login_path
+      end
+    end
+  end
+
+  describe "#show" do
+    context "user signed in" do
+      before { log_in(user) }
+
+      def valid_request
+        quiz.category_id = category.id
+        quiz.save
+        get :show, id: quiz
+      end
+
+      it "renders the new template" do
+        valid_request
+        expect(response).to render_template(:show)
+      end
+
+      it "set a instance variable to a new quiz" do
+        valid_request
+        expect(assigns(:quiz)).to eq(quiz)
+      end
+
+      it "set a instance variable to for all categories" do
+        valid_request
+        expect(assigns(:category)).to eq(category)
       end
     end
   end
