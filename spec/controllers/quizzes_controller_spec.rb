@@ -160,6 +160,25 @@ RSpec.describe QuizzesController, type: :controller do
         expect(assigns(:categories)).to eq(Category.all)
       end
     end
+
+    context "user not signed in" do
+      before { get :index }
+
+      it "renders the new template" do
+        expect(response).to render_template(:index)
+      end
+
+      it "set a instance variable for all quizzes" do
+        quiz
+        quiz_1
+        expect(assigns(:quizzes)).to eq([quiz, quiz_1])
+      end
+
+      it "set a instance variable to for all categories" do
+        all_categories
+        expect(assigns(:categories)).to eq(Category.all)
+      end
+    end
   end
 
 end
