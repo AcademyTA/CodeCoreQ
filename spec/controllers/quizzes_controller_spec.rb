@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe QuizzesController, type: :controller do
   let(:user)           { create(:user) }
   let(:quiz)           { create(:quiz) }
+  let(:quiz_1)         { create(:quiz) }
   let(:category)       { create(:category) }
   let(:all_categories) { create_list(:category, 5) }
   let(:question)       { create(:question) }
@@ -137,6 +138,26 @@ RSpec.describe QuizzesController, type: :controller do
       it "set a instance variable to for all quiz questions" do
         valid_request
         expect(assigns(:questions)).to eq(all_questions)
+      end
+    end
+  end
+
+  describe "#index" do
+    context "user signed in" do
+      before { log_in(user) }
+      before { get :index }
+
+      it "renders the new template" do
+        expect(response).to render_template(:index)
+      end
+
+      it "set a instance variable for all quizzes" do
+        expect(assigns(:quizzes)).to eq(Quiz.all)
+      end
+
+      it "set a instance variable to for all categories" do
+        all_categories
+        expect(assigns(:categories)).to eq(Category.all)
       end
     end
   end
