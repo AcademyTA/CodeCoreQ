@@ -181,4 +181,24 @@ RSpec.describe QuizzesController, type: :controller do
     end
   end
 
+  describe "#edit" do
+    context "user signed in" do
+      before { log_in(user) }
+      before { get :edit, id: quiz }
+
+      it "renders the new template" do
+        expect(response).to render_template(:edit)
+      end
+
+      it "set a instance variable for quiz" do
+        expect(assigns(:quiz)).to eq(quiz)
+      end
+
+      it "set a instance variable to for all categories" do
+        all_categories
+        expect(assigns(:categories)).to eq(Category.all)
+      end
+    end
+  end
+
 end
