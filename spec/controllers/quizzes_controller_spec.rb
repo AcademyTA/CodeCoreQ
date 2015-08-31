@@ -199,6 +199,14 @@ RSpec.describe QuizzesController, type: :controller do
         expect(assigns(:categories)).to eq(Category.all)
       end
     end
+
+    context "user not signed in" do
+      before { get :edit, id: quiz }
+      it "redirects to sign in page" do
+        expect(response).to redirect_to login_path
+      end
+    end
   end
+
 
 end
