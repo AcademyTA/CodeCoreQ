@@ -50,10 +50,11 @@ class QuizzesController < ApplicationController
   def update
     # render text: params
     @quiz = Quiz.find(params[:id])
-    
     if @quiz.update(quiz_params)
+      flash[:success] = "Quiz updated!"
       redirect_to quizzes_path
-    else 
+    else
+      flash[:alert] = "Unable to update Quiz!"
       render :edit
     end
   end
