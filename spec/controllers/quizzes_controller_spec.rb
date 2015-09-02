@@ -215,6 +215,36 @@ RSpec.describe QuizzesController, type: :controller do
         expect(response).to redirect_to(login_path)
       end
     end
+
+    context "with owner user signed in" do
+      before { log_in(user) }
+
+      def valid_attributes(new_attributes = {})
+        attributes_for(:quiz).merge(new_attributes)
+      end
+
+      context "with valid attributes" do
+        before do
+          patch :update, id: quiz, quiz: valid_attributes(title: "new title")
+        end
+
+        it "set a instance variable for quiz" do
+          expect(assigns(:quiz)).to eq(quiz)
+        end
+
+        it "updates the record in the database" do
+          expect(quiz.reload.title).to eq("new title")
+        end
+
+        it "redirects to the show page" do
+          expect(response).to redirect_to(quizzes_path)
+        end
+
+        it "sets a flash message" do
+          expect(flash[:success]).to be
+        end
+      end
+    end
   end
 
 
