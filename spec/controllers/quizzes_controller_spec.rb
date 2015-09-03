@@ -244,6 +244,38 @@ RSpec.describe QuizzesController, type: :controller do
           expect(flash[:success]).to be
         end
       end
+
+      context "with invalid attributes" do
+        before do
+          patch :update, id: quiz, quiz: valid_attributes(title: "")
+        end
+
+        it "set a instance variable for quiz" do
+          expect(assigns(:quiz)).to eq(quiz)
+        end
+
+        it "doesn't update the record in the database" do
+          expect(quiz.reload.title).to_not eq("")
+        end
+
+        it "renders the edit template" do
+          expect(response).to render_template(:edit)
+        end
+
+        it "sets a flash message" do
+          expect(flash[:alert]).to be
+        end
+      end
+    end
+
+    context "with non-owner user signed in" do
+      before { log_in(user) }
+
+      it "raises an error" do
+        expect do
+          patch :update, id: quiz.id, quiz: attributes_for(:quiz)
+        end.to raise_error
+      end
     end
   end
 
