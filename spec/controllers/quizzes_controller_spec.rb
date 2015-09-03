@@ -267,19 +267,5 @@ RSpec.describe QuizzesController, type: :controller do
         end
       end
     end
-
-    context "with non-owner user signed in" do
-      before { log_in(user) }
-
-      it "raises an error" do
-        expect do
-          patch :update, id: quiz.id, quiz: attributes_for(:quiz)
-        end.to raise_error
-      end
-    end
   end
-
-
-
-
 end
