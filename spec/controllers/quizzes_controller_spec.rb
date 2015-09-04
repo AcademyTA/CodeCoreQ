@@ -65,7 +65,7 @@ RSpec.describe QuizzesController, type: :controller do
 
         it "sets a flash message" do
           valid_request
-          expect(flash[:success]).to be
+          expect(flash[:notice]).to be
         end
 
         it "redirect to quiz show page" do
@@ -241,7 +241,7 @@ RSpec.describe QuizzesController, type: :controller do
         end
 
         it "sets a flash message" do
-          expect(flash[:success]).to be
+          expect(flash[:notice]).to be
         end
       end
 
@@ -268,4 +268,36 @@ RSpec.describe QuizzesController, type: :controller do
       end
     end
   end
+
+  describe "#destroy" do
+    context "with user signed in" do
+      before { log_in(user) }
+
+      context "with owner signed in" do
+        it "reduces the number of campaigns in the database by 1" do
+          quiz
+          expect { delete :destroy, id: quiz.id }.to change { Quiz.count }.by(-1)
+        end
+
+        it "redirects to the campaigns index page" do
+          delete :destroy, id: quiz.id
+          expect(response).to redirect_to quizzes_path
+        end
+
+        it "sets a flash message" do
+          delete :destroy, id: quiz.id
+          expect(flash[:notice]).to be
+        end
+      end
+    end
+
+    context "with user not signed in" do
+      it "redirects to the sign in page" do
+        delete :destroy, id: quiz.id
+        expect(response).to redirect_to(login_path)
+      end
+    end
+
+  end
+
 end

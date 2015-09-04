@@ -12,7 +12,7 @@ class QuizzesController < ApplicationController
     @categories = Category.all
 
     if @quiz.save
-      flash[:success] = "Quiz Created!"
+      flash[:notice] = "Quiz Created!"
       redirect_to @quiz
     else
       flash[:alert] = "Unable to create Quiz!"
@@ -51,7 +51,7 @@ class QuizzesController < ApplicationController
     # render text: params
     @quiz = Quiz.find(params[:id])
     if @quiz.update(quiz_params)
-      flash[:success] = "Quiz updated!"
+      flash[:notice] = "Quiz updated!"
       redirect_to quizzes_path
     else
       flash[:alert] = "Unable to update Quiz!"
@@ -62,6 +62,7 @@ class QuizzesController < ApplicationController
   def destroy
     @quiz = Quiz.find (params[:id])
     @quiz.destroy
+    flash[:notice] = "Quiz Deleted!"
     redirect_to quizzes_path
   end
 
