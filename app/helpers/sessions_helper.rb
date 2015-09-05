@@ -51,5 +51,8 @@ module SessionsHelper
     session[:forwarding_url] = request.url if request.get?
   end
 
+  def authenticate_user!
+    redirect_to login_path, alert: "Please sign in" unless session[:user_id].present?
+  end
 
 end
