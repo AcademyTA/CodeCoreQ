@@ -1,17 +1,16 @@
 class QuestionsController < ApplicationController
-  
 
   def new
     # render text: params
-    @quiz = Quiz.find(params[:quiz_id])
+    @quiz     = Quiz.find(params[:quiz_id])
     @question = @quiz.questions.new
   end
 
-
   def create
     # render text: params
-    @quiz = Quiz.find(params[:quiz_id])
+    @quiz     = Quiz.find(params[:quiz_id])
     @question = @quiz.questions.new question_params
+
     if @question.save
       redirect_to quiz_questions_path
     else
@@ -22,23 +21,23 @@ class QuestionsController < ApplicationController
   def show
     # render text: params
     @question = Question.find(params[:id])
-    @answers = @question.answers
+    @answers  = @question.answers
   end
 
-
   def index
-    @quiz = Quiz.find params[:quiz_id]
+    @quiz      = Quiz.find params[:quiz_id]
     @questions = @quiz.questions.all
   end
 
   def edit
+    @quiz     = @question.quiz 
     @question = Question.find(params[:id])
-    @quiz = @question.quiz 
   end
 
   def update
     # render text: params
     @question = Question.find(params[:id])
+
     if @question.update question_params
       redirect_to quiz_questions_path(@question.quiz)
     else :edit
@@ -47,13 +46,14 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
-    @quiz = @question.quiz
+    @quiz     = @question.quiz
+
     @question.destroy
     redirect_to quiz_questions_path(@quiz)
   end
 
-
   private
+
   def question_params 
     params.require(:question).permit(:title, :body, :explanation, :quiz_id)
   end
