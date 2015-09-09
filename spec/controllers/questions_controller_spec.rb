@@ -6,14 +6,6 @@ RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question) }
 
   describe "#new" do
-    context "user not signed in" do
-      before { get :new, quiz_id: quiz.id, question: attributes_for(:question) }
-
-      it "redirects to sign in page" do
-        expect(response).to redirect_to login_path
-      end
-    end
-
     context "user signed in" do
       before { log_in(user) }
       before { get :new, quiz_id: quiz.id, question: attributes_for(:question) }
@@ -30,6 +22,25 @@ RSpec.describe QuestionsController, type: :controller do
         expect(assigns(:question)).to be_a_new Question
       end
     end
+
+    context "user not signed in" do
+      before { get :new, quiz_id: quiz.id, question: attributes_for(:question) }
+
+      it "redirects to sign in page" do
+        expect(response).to redirect_to login_path
+      end
+    end
+  end
+
+  describe "#create" do
+    context "user not signed in" do
+      before { post :create, quiz_id: quiz.id, question: attributes_for(:question) }
+
+      it "redirects to sign in page" do
+        expect(response).to redirect_to login_path
+      end
+    end
+
   end
 
 end
