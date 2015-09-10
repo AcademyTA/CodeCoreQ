@@ -41,6 +41,24 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
 
+
+    context "user signed in" do
+      before { log_in(user) }
+
+      def valid_request
+        post :create, quiz_id: quiz.id, question: attributes_for(:question)
+      end
+
+      it "set a instance variable to equal quiz" do
+        valid_request
+        expect(assigns(:quiz)).to eq(quiz)
+      end
+
+      it "creates a new quiz in the database" do
+        expect { valid_request }.to change { Question.count }.by(1)
+      end
+    end
+
   end
 
 end
