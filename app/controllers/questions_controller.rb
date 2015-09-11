@@ -13,8 +13,10 @@ class QuestionsController < ApplicationController
     @question = @quiz.questions.new question_params
 
     if @question.save
+      flash[:notice] = "Question created for #{@quiz.title}"
       redirect_to quiz_questions_path
     else
+      flash[:alert] = "Could not create question."
       render :new
     end
   end
