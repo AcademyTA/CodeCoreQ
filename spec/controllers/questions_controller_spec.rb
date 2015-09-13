@@ -44,27 +44,49 @@ RSpec.describe QuestionsController, type: :controller do
     context "user signed in" do
       before { log_in(user) }
 
-      def valid_request
-        post :create, quiz_id: quiz.id, question: attributes_for(:question)
+      context "user signed in with valid request" do
+        def valid_request
+          post :create, quiz_id: quiz.id, question: attributes_for(:question)
+        end
+
+        it "set a instance variable to equal quiz" do
+          valid_request
+          expect(assigns(:quiz)).to eq(quiz)
+        end
+
+        it "creates a new quiz in the database" do
+          expect { valid_request }.to change { Question.count }.by(1)
+        end
+
+        it "sets a flash message" do
+          valid_request
+          expect(flash[:notice]).to be
+        end
+
+        it "redirects to quiz questions path" do
+          valid_request
+          expect(response).to redirect_to(quiz_questions_path)
+        end
       end
 
-      it "set a instance variable to equal quiz" do
-        valid_request
-        expect(assigns(:quiz)).to eq(quiz)
-      end
+      context "with invalid request" do
+        def invalid_request
+          post :create, quiz_id: quiz.id, question: {title: nil}
+        end
 
-      it "creates a new quiz in the database" do
-        expect { valid_request }.to change { Question.count }.by(1)
-      end
+        it "doesn't create a record in the database" do
+          expect { invalid_request }.to change { Question.count }.by(0)
+        end
 
-      it "sets a flash message" do
-        valid_request
-        expect(flash[:notice]).to be
-      end
+        it "renders the new template" do
+          invalid_request
+          expect(response).to render_template(:new)
+        end
 
-      it "redirects to quiz questions path" do
-        valid_request
-        expect(response).to redirect_to(quiz_questions_path)
+        it "sets a flash message" do
+          invalid_request
+          expect(flash[:alert]).to be
+        end
       end
     end
   end
