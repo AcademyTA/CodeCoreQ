@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
   let(:user)     { create(:user) }
   let(:quiz)     { create(:quiz) }
-  let(:question) { create(:question) }
+  let(:question) { create(:question, quiz: quiz) }
+  let(:answer)   { create(:answer, question: question) }
 
   describe "#new" do
     context "user signed in" do
@@ -87,6 +88,36 @@ RSpec.describe QuestionsController, type: :controller do
           invalid_request
           expect(flash[:alert]).to be
         end
+      end
+    end
+  end
+
+  describe "#show" do
+    context "user signed in" do
+      before { log_in(user) }
+
+      def valid_request
+        get :show, quiz_id: quiz, id: question
+      end
+
+      it "renders the new template" do
+        valid_request
+        expect(response).to render_template(:show)
+      end
+
+      it "set a instance variable to equal quiz" do
+        valid_request
+        expect(assigns(:quiz)).to eq(quiz)
+      end
+
+      it "set a instance variable to equal question" do
+        valid_request
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "set a instance variable for all answers" do
+        valid_request
+        expect(assigns(:answers)).to eq([answer])
       end
     end
   end
