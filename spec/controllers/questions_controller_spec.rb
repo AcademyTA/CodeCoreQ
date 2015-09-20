@@ -95,36 +95,28 @@ RSpec.describe QuestionsController, type: :controller do
   describe "#show" do
     context "user signed in" do
       before { log_in(user) }
-
-      def valid_request
-        get :show, quiz_id: quiz, id: question
-      end
+      before { get :show, quiz_id: quiz, id: question }
 
       it "renders the new template" do
-        valid_request
         expect(response).to render_template(:show)
       end
 
       it "set a instance variable to equal quiz" do
-        valid_request
         expect(assigns(:quiz)).to eq(quiz)
       end
 
       it "set a instance variable to equal question" do
-        valid_request
         expect(assigns(:question)).to eq(question)
       end
 
       it "set a instance variable for all answers" do
-        valid_request
         expect(assigns(:answers)).to eq([answer])
       end
     end
-    
-    context "user not signed in" do
-      before { get :show, quiz_id: quiz, id: question }
 
+    context "user not signed in" do
       it "redirects to sign in page" do
+        get :show, quiz_id: quiz, id: question
         expect(response).to redirect_to login_path
       end
     end
