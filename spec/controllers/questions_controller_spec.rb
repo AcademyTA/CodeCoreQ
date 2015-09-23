@@ -125,23 +125,17 @@ RSpec.describe QuestionsController, type: :controller do
   describe "#index" do
     context "user signed in" do
       before { log_in(user) }
-
-      def valid_request
-        get :index, quiz_id: quiz
-      end
+      before { get :index, quiz_id: quiz }
 
       it "renders the new template" do
-        valid_request
         expect(response).to render_template(:index)
       end
 
       it "set a instance variable to equal quiz" do
-        valid_request
         expect(assigns(:quiz)).to eq(quiz)
       end
 
       it "set a instance variable to a new question" do
-        valid_request
         expect(assigns(:questions)).to eq([question])
       end
     end
@@ -152,6 +146,5 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to login_path
       end
     end
-
   end
 end
