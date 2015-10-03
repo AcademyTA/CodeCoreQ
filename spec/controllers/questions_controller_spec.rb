@@ -147,4 +147,24 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+  describe "#show" do
+    context "user signed in" do
+      before { log_in(user) }
+      before { get :edit, quiz_id: quiz, id: question }
+
+      it "renders the new template" do
+        expect(response).to render_template(:edit)
+      end
+
+      it "set a instance variable to equal quiz" do
+        expect(assigns(:quiz)).to eq(quiz)
+      end
+
+      it "set a instance variable to equal question" do
+        expect(assigns(:question)).to eq(question)
+      end
+    end
+  end
+
 end
