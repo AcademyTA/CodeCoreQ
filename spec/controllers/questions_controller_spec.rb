@@ -148,7 +148,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  describe "#show" do
+  describe "#edit" do
     context "user signed in" do
       before { log_in(user) }
       before { get :edit, quiz_id: quiz, id: question }
