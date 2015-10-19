@@ -44,7 +44,8 @@ class QuestionsController < ApplicationController
 
     if @question.update question_params
       redirect_to quiz_questions_path(@question.quiz)
-    else :edit
+    else
+      :edit
     end
   end
 

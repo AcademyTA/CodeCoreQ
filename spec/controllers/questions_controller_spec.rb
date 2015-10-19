@@ -174,4 +174,12 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
+  describe "#update" do
+    context "with user not signed in" do
+      it "redirects new session path" do
+        patch :update, id: quiz, question: { title: "some valid title" }
+        expect(response).to redirect_to(login_path)
+      end
+    end
+  end
 end
