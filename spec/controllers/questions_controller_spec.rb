@@ -177,8 +177,38 @@ RSpec.describe QuestionsController, type: :controller do
   describe "#update" do
     context "with user not signed in" do
       it "redirects new session path" do
-        patch :update, id: quiz, question: { title: "some valid title" }
+        patch :update, id: question, question: { body: "body body" }
         expect(response).to redirect_to(login_path)
+      end
+    end
+
+    context "with owner user signed in" do
+      before { log_in(user) }
+
+      def valid_attributes(new_attributes = {})
+        attributes_for(:question).merge(new_attributes)
+      end
+
+      context "with valid attributes" do
+        before do
+          patch :update, id: question, question: valid_attributes(body: "body body")
+        end
+
+        it "set a instance variable for question" do
+          expect(assigns(:question)).to eq(question)
+        end
+
+        it "updates the record in the database" do
+          expect(question.reload.body).to eq("body body")
+        end
+
+        it "redirects to the show page" do
+          expect(response).to redirect_to(quiz_questions_path(question.quiz))
+        end
+
+        it "sets a flash message" do
+          expect(flash[:notice]).to be
+        end
       end
     end
   end

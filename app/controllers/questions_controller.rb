@@ -44,6 +44,7 @@ class QuestionsController < ApplicationController
 
     if @question.update question_params
       redirect_to quiz_questions_path(@question.quiz)
+      flash[:notice] = "Question updated"
     else
       :edit
     end
