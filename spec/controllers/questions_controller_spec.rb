@@ -234,4 +234,13 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+  describe "#destroy" do
+    context "with user not signed in" do
+      it "redirects new session path" do
+        delete :destroy, quiz_id: quiz.id, id: question.id
+        expect(response).to redirect_to(login_path)
+      end
+    end
+  end
 end

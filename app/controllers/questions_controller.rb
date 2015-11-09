@@ -56,6 +56,7 @@ class QuestionsController < ApplicationController
     @quiz     = @question.quiz
 
     @question.destroy
+    flash[:notice] = "Question deleted"
     redirect_to quiz_questions_path(@quiz)
   end
 
