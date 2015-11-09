@@ -262,6 +262,15 @@ RSpec.describe QuestionsController, type: :controller do
           to change { Question.count }.by(-1)
       end
 
+      it "sets a flash message" do
+        delete :destroy, quiz_id: quiz.id, id: question.id
+        expect(flash[:notice]).to be
+      end
+
+      it "redirects to the questions quiz show page" do
+        delete :destroy, quiz_id: quiz.id, id: question.id
+        expect(response).to redirect_to(quiz_questions_path(quiz))
+      end
     end
   end
 end
