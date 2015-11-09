@@ -242,5 +242,26 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to(login_path)
       end
     end
+
+    context "with owner user signed in" do
+      before { log_in(user) }
+
+      it "set a instance variable to equal quiz" do
+        delete :destroy, quiz_id: quiz.id, id: question.id
+        expect(assigns(:quiz)).to eq(quiz)
+      end
+
+      it "set a instance variable to equal question" do
+        delete :destroy, quiz_id: quiz.id, id: question.id
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "reduces the number of questions in the database by 1" do
+        question
+        expect { delete :destroy, quiz_id: quiz.id, id: question.id }.
+          to change { Question.count }.by(-1)
+      end
+
+    end
   end
 end
