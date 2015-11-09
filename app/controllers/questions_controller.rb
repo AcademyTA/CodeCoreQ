@@ -34,8 +34,8 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @quiz     = @question.quiz 
     @question = Question.find(params[:id])
+    @quiz     = @question.quiz 
   end
 
   def update
@@ -43,8 +43,11 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
 
     if @question.update question_params
+      flash[:notice] = "Question updated"
       redirect_to quiz_questions_path(@question.quiz)
-    else :edit
+    else
+      flash[:alert] = "Could not update question."
+      render :edit
     end
   end
 
@@ -53,6 +56,7 @@ class QuestionsController < ApplicationController
     @quiz     = @question.quiz
 
     @question.destroy
+    flash[:notice] = "Question deleted"
     redirect_to quiz_questions_path(@quiz)
   end
 
