@@ -177,7 +177,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "#update" do
     context "with user not signed in" do
       it "redirects new session path" do
-        patch :update, id: question, question: { body: "body body" }
+        patch :update, id: question, question: { title: "My Title" }
         expect(response).to redirect_to(login_path)
       end
     end
@@ -191,7 +191,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       context "with valid attributes" do
         before do
-          patch :update, id: question, question: valid_attributes(body: "body body")
+          patch :update, id: question, question: valid_attributes(title: "New Title")
         end
 
         it "set a instance variable for question" do
@@ -199,7 +199,7 @@ RSpec.describe QuestionsController, type: :controller do
         end
 
         it "updates the record in the database" do
-          expect(question.reload.body).to eq("body body")
+          expect(question.reload.title).to eq("New Title")
         end
 
         it "redirects to the show page" do
@@ -208,6 +208,28 @@ RSpec.describe QuestionsController, type: :controller do
 
         it "sets a flash message" do
           expect(flash[:notice]).to be
+        end
+      end
+
+      context "with invalid attributes" do
+        before do
+          patch :update, id: question, question: valid_attributes(title: "")
+        end
+
+        it "set a instance variable for question" do
+          expect(assigns(:question)).to eq(question)
+        end
+
+        it "doesn't update the record in the database" do
+          expect(question.reload.title).to_not eq("")
+        end
+
+        it "renders the edit template" do
+          expect(response).to render_template(:edit)
+        end
+
+        it "sets a flash message" do
+          expect(flash[:alert]).to be
         end
       end
     end

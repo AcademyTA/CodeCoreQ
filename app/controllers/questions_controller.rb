@@ -43,10 +43,11 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
 
     if @question.update question_params
-      redirect_to quiz_questions_path(@question.quiz)
       flash[:notice] = "Question updated"
+      redirect_to quiz_questions_path(@question.quiz)
     else
-      :edit
+      flash[:alert] = "Could not update question."
+      render :edit
     end
   end
 
