@@ -66,4 +66,22 @@ RSpec.describe Quiz, type: :model do
     it { should have_many(:users) }
   end
 
+  describe ".per_question_point" do
+    it "returns an integer" do
+      quiz = Quiz.create(valid_attributes())
+      expect(quiz.per_question_point).to be_a(Fixnum)
+    end
+
+    it "returns 0 when there are no questions" do
+      quiz = Quiz.create(valid_attributes())
+      expect(quiz.per_question_point).to eq(0)
+    end
+
+    it "returns the correct value 100 / question.count" do
+      quiz = Quiz.create(valid_attributes())
+      10.times { |num| quiz.questions.create(title: "Cool Story Bro #{num}") }
+      expect(quiz.per_question_point).to eq(10)
+    end
+  end
+
 end
