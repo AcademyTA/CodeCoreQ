@@ -49,5 +49,13 @@ RSpec.describe AnswersController, type: :controller do
         expect(assigns(:answers)).to eq([answer, answer_1])
       end
     end
+
+    context "user not signed in" do
+      before { get :index, question_id: question.id }
+
+      it "redirects to sign in page" do
+        expect(response).to redirect_to login_path
+      end
+    end
   end
 end
