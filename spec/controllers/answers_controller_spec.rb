@@ -58,4 +58,40 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe "#create" do
+    context "user signed in" do
+      before { log_in(user) }
+
+      context "user signed in with valid request" do
+        def valid_request
+          post :create, question_id: question.id, answer: attributes_for(:answer)
+        end
+
+        it "set a instance variable to equal question" do
+          valid_request
+          expect(assigns(:question)).to eq(question)
+        end
+
+        it "creates a new quiz in the database" do
+          expect { valid_request }.to change { Answer.count }.by(1)
+        end
+
+        it "associates the created campaign to the user" do
+          valid_request
+          expect( Answer.last.question ).to eq(question)
+        end
+
+        it "sets a flash message" do
+          valid_request
+          expect(flash[:notice]).to be
+        end
+
+        it "redirects to quiz questions path" do
+          valid_request
+          expect(response).to redirect_to(quiz_questions_path(question.quiz))
+        end
+      end
+    end
+  end
 end

@@ -10,8 +10,9 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = Answer.new answer_params
-    @answer.question_id = @question.id
+    # @answer = Answer.new answer_params
+    # @answer.question_id = @question.id
+    @answer = @question.answers.create(answer_params)
     if @answer.save
       redirect_to quiz_questions_path(@question.quiz), notice: "Answer created successfully."
     else
