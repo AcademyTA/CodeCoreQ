@@ -92,6 +92,26 @@ RSpec.describe AnswersController, type: :controller do
           expect(response).to redirect_to(quiz_questions_path(question.quiz))
         end
       end
+
+      context "with invalid request" do
+        def invalid_request
+          post :create, question_id: question.id, answer: { body: nil }
+        end
+
+        it "doesn't create a record in the database" do
+          expect { invalid_request }.to change { Answer.count }.by(0)
+        end
+
+        it "redirects to the quiz questions path" do
+          invalid_request
+          expect(response).to redirect_to(quiz_questions_path(question.quiz))
+        end
+
+        it "sets a flash message" do
+          invalid_request
+          expect(flash[:alert]).to be
+        end
+      end
     end
   end
 end
