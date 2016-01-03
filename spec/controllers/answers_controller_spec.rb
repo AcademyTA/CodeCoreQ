@@ -147,4 +147,40 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe "#update" do
+    context "user signed in" do
+      before { log_in(user) }
+
+      # def valid_attributes(new_attributes = {})
+      #   attributes_for(:question).merge(new_attributes)
+      # end
+
+      context "with valid attributes" do
+        before do
+          patch :update, question_id: question, id: answer, answer: { body: "New Content" }
+        end
+
+        it "set a instance variable to equal question" do
+          expect(assigns(:question)).to eq(question)
+        end
+
+        it "set a instance variable to equal question" do
+          expect(assigns(:answer)).to eq(answer)
+        end
+
+        it "updates the record in the database" do
+          expect(answer.reload.body).to eq("New Content")
+        end
+
+        it "redirects to the show page" do
+          expect(response).to redirect_to(question_answers_path(question))
+        end
+
+        it "sets a flash message" do
+          expect(flash[:notice]).to be
+        end
+      end
+    end
+  end
 end
