@@ -182,5 +182,12 @@ RSpec.describe AnswersController, type: :controller do
         end
       end
     end
+
+    context "user not signed in" do
+      it "redirects to sign in page" do
+        get :edit, question_id: question, id: answer
+        expect(response).to redirect_to login_path
+      end
+    end
   end
 end
