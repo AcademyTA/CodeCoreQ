@@ -152,10 +152,6 @@ RSpec.describe AnswersController, type: :controller do
     context "user signed in" do
       before { log_in(user) }
 
-      # def valid_attributes(new_attributes = {})
-      #   attributes_for(:question).merge(new_attributes)
-      # end
-
       context "with valid attributes" do
         before do
           patch :update, question_id: question, id: answer, answer: { body: "New Content" }
@@ -211,7 +207,7 @@ RSpec.describe AnswersController, type: :controller do
 
     context "user not signed in" do
       it "redirects to sign in page" do
-        get :edit, question_id: question, id: answer
+        patch :update, question_id: question, id: answer, answer: { body: "New Content" }
         expect(response).to redirect_to login_path
       end
     end
