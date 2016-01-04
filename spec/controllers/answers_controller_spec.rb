@@ -181,6 +181,32 @@ RSpec.describe AnswersController, type: :controller do
           expect(flash[:notice]).to be
         end
       end
+
+      context "with invalid attributes" do
+        before do
+          patch :update, question_id: question, id: answer, answer: { body: "" }
+        end
+
+        it "set a instance variable to equal question" do
+          expect(assigns(:question)).to eq(question)
+        end
+
+        it "set a instance variable to equal question" do
+          expect(assigns(:answer)).to eq(answer)
+        end
+
+        it "updates the record in the database" do
+          expect(answer.reload.body).not_to eq("")
+        end
+
+        it "redirects to the show page" do
+          expect(response).to redirect_to(question_answers_path(question))
+        end
+
+        it "sets a flash message" do
+          expect(flash[:alert]).to be
+        end
+      end
     end
 
     context "user not signed in" do
