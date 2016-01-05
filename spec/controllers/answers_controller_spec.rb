@@ -212,4 +212,34 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+
+  describe "#destroy" do
+    context "with owner user signed in" do
+      before { log_in(user) }
+      before { delete :destroy, question_id: question, id: answer }
+
+      it "set a instance variable to equal question" do
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "set a instance variable to equal question" do
+        expect(assigns(:answer)).to eq(answer)
+      end
+
+      it "reduces the number of questions in the database by 1" do
+        # I am using answer_1 here because answer is being destroyed above by
+        # the before action. So we load answer_1, deleted and check the count.
+        answer_1
+        expect { delete :destroy, question_id: question, id: answer_1 }.to change { Answer.count }.by(-1)
+      end
+
+      it "sets a flash message" do
+        expect(flash[:notice]).to be
+      end
+
+      it "redirects to the questions quiz show page" do
+        expect(response).to redirect_to(question_answers_path(question))
+      end
+    end
+  end
 end
