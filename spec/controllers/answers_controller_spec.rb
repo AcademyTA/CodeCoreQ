@@ -241,5 +241,12 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to redirect_to(question_answers_path(question))
       end
     end
+
+    context "with user not signed in" do
+      it "redirects new session path" do
+        delete :destroy, question_id: question, id: answer
+        expect(response).to redirect_to(login_path)
+      end
+    end
   end
 end
